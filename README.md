@@ -97,11 +97,5 @@ Pour proposer une modification :
 4. Poussez sur votre fork : `git push origin feature/nouvelle-fonctionnalite`
 5. Ouvrez une *Pull Request*
 
-## Licence
-
-Ce projet est sous licence [MIT](LICENSE).
-
----
-
 **Auteur:** gracemakeu26-lgtm  
 Application pour faciliter l’organisation des taches de studio lumière.
