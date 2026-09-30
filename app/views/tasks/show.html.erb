@@ -1,2 +1,20 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<h1><%= @task.title %></h1>
+<p><%= @task.description%></p>
+<p><%= @task.due_on%></p>
+<% case @task.priority %>
+<% when 0 %>
+  <p> Basse</p>
+<% when 1 %>
+  <p> Normale</p>
+<% when 2 %>
+  <p> Haute</p>
+<% end %>
+
+<% case @task.done %>
+<% when true %>
+  <p> Vrai</p>
+<% when false %>
+  <p> Faux</p>
+<% end %>
+<p><%= @task.created_at%></p>
+<%= link_to "Retour à la liste", tasks_path %>

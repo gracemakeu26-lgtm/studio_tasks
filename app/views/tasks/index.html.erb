@@ -1,2 +1,13 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<% @tasks.each do |task| %>
+    <h2><%= link_to task.title, task_path(task) %></h2>
+    <% unless task.done %>
+        <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
+    <% end %>
+    <p><%= task.done ? "Faite" : "Non faite" %></p> 
+<% end %>
+<% if @tasks.empty? %>
+    <p> Aucune tâche pour l'instant — créez la première </p>
+    <%= link_to "Nouvelle tâche", new_task_path %>
+<% else %>
+    <%# la boucle de la liste %>
+<% end %>
