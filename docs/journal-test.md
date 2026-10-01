@@ -10,6 +10,7 @@ quand je crée en console une tâche au titre de 120 caractères, une tâche à 
 * Avec un titre de 120 caractère il deborde 
 * Une échéance très lointaine reste lisile
 * Avec 0 tâche l'état vide s'affiche 
+* Avec une tâche sans échéance fait planté le logiciel
 
 ## La rubrique négatif
 

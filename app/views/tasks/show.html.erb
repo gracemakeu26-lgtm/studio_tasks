@@ -12,9 +12,9 @@
 
 <% case @task.done %>
 <% when true %>
-  <p> Vrai</p>
+  <p> Fait</p>
 <% when false %>
-  <p> Faux</p>
+  <p> Non fait</p>
 <% end %>
 <p><%= @task.created_at%></p>
 <%= link_to "Retour à la liste", tasks_path %>
