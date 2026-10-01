@@ -1,13 +1,20 @@
 <% @tasks.each do |task| %>
-    <h2><%= link_to task.title, task_path(task) %></h2>
-    <% unless task.done %>
-        <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
+  <h2><%= link_to task.title, task_path(task) %></h2>
+
+  <% unless task.done %>
+    <% if task.due_on.present? %>
+      <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
+    <% else %>
+      <p>Pas d’échéance</p>
     <% end %>
-    <p><%= task.done ? "Faite" : "Non faite" %></p> 
+  <% end %>
+
+  <p><%= task.done ? "Faite" : "Non faite" %></p>
 <% end %>
+
 <% if @tasks.empty? %>
-    <p> Aucune tâche pour l'instant — créez la première </p>
-    <%= link_to "Nouvelle tâche", new_task_path %>
-<% else %>
-    <%# la boucle de la liste %>
+  <p>Aucune tâche pour l'instant — créez la première</p>
+  <%= link_to "Nouvelle tâche", new_task_path %>
 <% end %>
+
+<%= link_to "Créer une tâche", new_task_path %>

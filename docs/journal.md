@@ -104,3 +104,23 @@ Le numéro `1` va dans l'objet `params[:id]` du contrôleur, ce qui permet de l'
 * **`Task.create(title: nil)`** : la contrainte empêche de créer un titre `nil`.
 * **`Task.create(title: "")`** : la contrainte empêche de créer un titre `nil` mais pas un titre vide — ça, c'est au code de le faire.
 * **`Task.find(999)`** : l'id `999` n'existe pas dans la base de données.
+
+## Note de lecture du jour 6
+
+* Pour la création d'une tâche il faut deux actions : une pour ouvrir le formulaire de creation (GET /tasks/new new) et l'autre pour recevoir les informations et les enreigistrées (POST /tasks create)
+* Les données envoyées par la requête sont disponibles dans les paramètres 
+* Pour créer un formulaire on utilise la méthode <%= form_with %> et pour construire à partir d'un modèle c'est <%= form_with model : @task do |form| %>
+* Pour eviter l'attaque par mass assignment on utilise les strong parameters qui designe les champs obligatoires du formulaire et fait en sorte que lors de la soumission du formulaire si un champ qui n'est pas désigné est introduit, ce dernier est rejeté en silence 
+
+Le champ caché <input type="hidden" name="authenticity_token" value="EtX2BTuA0lajWPslZyCYhCsWdErJourZUP5r_CKNqxRXTpGy0ALmUFXqdwidd37YvFn3eQFR1QXz_ZyjQ296Kw">
+method = "post", les names: task[title], task[description], task[done], task[due_on], task[priority]
+
+Les données sont dans la réponse de la requête. 
+
+La réponse a le statut 302 a cause redirect_to tasks_path qui est le statut par défaut et le navigateur envoie une requête GET vers l'url
+
+Lorsque j'ajoute avec les DevTools <input name="task[created_at]" value="1990-01-01"> et que je soumets, alors je vérifie en console que created_at de la tâche créée n'est PAS 1990, et je retrouve la ligne Unpermitted parameter dans log/development.log
+
+Étant donné :priority retiré de permit(...), quand je soumets une tâche en priorité haute, alors je constate que la priorité est perdue sans aucune erreur (reste normale), puis je remets :priority
+
+### **La leçon : oublier un champ dans permit est un bug silencieux, les logs sont le seul témoin.**

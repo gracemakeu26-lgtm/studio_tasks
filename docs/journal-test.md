@@ -11,6 +11,7 @@ quand je crée en console une tâche au titre de 120 caractères, une tâche à 
 * Une échéance très lointaine reste lisile
 * Avec 0 tâche l'état vide s'affiche 
 * Avec une tâche sans échéance fait planté le logiciel
+* défaut ouvert : l'application accepte une tâche sans titre
 
 ## La rubrique négatif
 
