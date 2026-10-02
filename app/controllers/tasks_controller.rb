@@ -13,8 +13,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save
-    redirect_to tasks_path
+    if @task.save
+      redirect_to tasks_path, notice: "Tâche créée avec succès :)"
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private

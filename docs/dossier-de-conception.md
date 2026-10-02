@@ -41,7 +41,7 @@
 - **Son workflow :** Elle ouvre l'appli → Elle crée rapidement une tâche. → Elle ajoute les détails et le niveau d’urgence. → l'assigne → Elle suit son état : à faire, en cours ou terminée.→ est notifiée quand c'est fait
 
 ## Ex. 2.3 — Les wireframes papier des 3 écrans
-![Wireframe](Wireframe-Page3.png)
+![Wireframe](/docs/captures/Wireframe-Page3.png)
 
 ## Ex. 2.4 — Le schéma de données
 
