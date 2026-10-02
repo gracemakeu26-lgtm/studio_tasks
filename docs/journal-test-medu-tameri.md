@@ -36,11 +36,20 @@ Jour 3 : Fiche de rôle
 - Étant donné l'écran des frais, quand je laisse une des 3 cases non cochée→ Impossibilité d'avancer → OK
 - Quand je met un nom <b>Test</b> et je regarde le CRM, je vu que le texte s'affiche tel quel cela prouve que tous les noms sont accéptés
 
-## Séance 4 — <30-10-2026> — rôle : <Etudiant>
+## Séance 4 — <30-10-2026> — rôle : <Conseiller / Manager>
         
 | Adresse visitée | Action | Critique de la page pipline |
 |---------|------|----------|
 | https://tameri.staging.conop-services.com/leads   | index  | Cette page permet d'afficher les leads        |
 | https://tameri.staging.conop-services.com/leads/assignments  |  assigné  | La tâche principale est d'assigner un lead        |
 |https://tameri.staging.conop-services.com/leads/6abd3271b3239c97b95f5f78/edit | edit | tâche principale est de modifier un lead ce qui la sert ce sont les informations du lead ce qui le gène c'est que toutes les informations du lead ne sont pas présentes comme le numéro et whatsapp |
+
+## Séance 5 — <02/10/2026> — rôle : <conseiller>
+
+- Étant donné le compte conseiller, quand j'ouvre la liste des leads, alors je ne vois que ceux qui m'ont été assignés. OK
+- Étant donné un de mes leads, quand je note un appel et que je le passe à « Contacté », alors le changement apparaît dans son historique. OK
+- Étant donné un de mes leads, quand j'essaie de le passer à « 1ère lettre d'acceptation payée », j'y arrive sans problème. OK
+- Étant donné un de mes leads, quand je le passe à « Abandon » sans motif je reçois un message qui me demande le motif donc le motif est exigé puis avec un motif, ça passe sans problème. OK
+- Étant donné l'adresse d'un lead qui n'est pas à moi, puis l'adresse /leads/abc, quand je les ouvre, j'arrive sur la page https://tameri.staging.conop-services.com/home. Le conseiller ne peut deviner qu'un lead existe parce que il ne voit que ceux qui lui sont assignés et l'adresse dresse d'un lead est compliqué pour qu'il puissse le déviner.
+- Étant donné la fiche d'un lead, quand je cherche le numéro WhatsApp à rappeler, 2 clics sont nécessaires.
 
