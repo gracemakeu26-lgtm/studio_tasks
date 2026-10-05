@@ -10,6 +10,7 @@
   <% end %>
 
   <p><%= task.done ? "Faite" : "Non faite" %></p>
+  <%= button_to "Fait", task_path(task), method: :patch, params: { task: { done: true} } %>
 <% end %>
 
 <% if @tasks.empty? %>

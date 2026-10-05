@@ -1,30 +1,4 @@
-<%= form_with model: @task, local: true do |form| %>
-  <div>
-    <%= form.label :title, "Titre" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :description, "Description" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :done, "Terminée" %>
-    <%= form.check_box :done %>
-  </div>
-
-  <div>
-    <%= form.label :due_on, "Échéance" %>
-    <%= form.date_field :due_on %>
-  </div>
-
-  <div>
-    <%= form.label :priority, "Priorité" %>
-    <%= form.select :priority, [["Basse", 0], ["Normale", 1], ["Haute", 2]], { include_blank: "Choisir une priorité" } %>
-  </div>
-
-  <%= form.submit "Créer la tâche" %>
-<% end %>
+<h1>Nouvelle tâche</h1>
+<%= render "form", task: @task %>
 
 <%= link_to "Retour à la liste", tasks_path %>

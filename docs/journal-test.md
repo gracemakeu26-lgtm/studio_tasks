@@ -32,7 +32,7 @@ la tâche principale de la gérante sur cette liste est de consulter les tâches
 
 Le défaut ouvert est fermé le 02/10/1026 avec les preuves suivantes:
 
-- Task.create(title: "") retourne une erreur : ["Title can't be blank"] 
+- Task.create(title: "") retourne une erreur : ["Title can't be blank"]
 
 ## Test du formulaire cas / attendu / obtenu / verdict
 
@@ -42,3 +42,15 @@ Le défaut ouvert est fermé le 02/10/1026 avec les preuves suivantes:
 - **priorité forgée à 9 avec les DevTools** Erreur / Erreur : Priority is not included in the list / Correct
 - **double-clic rapide sur le bouton d'envoi** Erreur / erreur + formulaire vide / Correct
 - **seul le titre rempli, champs optionnels vides** Accepté / Accepté / Correct
+
+## Test du CRUD
+
+- **Creer** OK
+- **Lire** OK
+- **Modifier** OK
+- **Marquer fait** La tâche passe à fait mais passe d'abord par les détails de la tâche. Acceptable
+- **Supprimer** OK
+
+Étant donné deux onglets ouverts sur la même tâche, quand je la supprime dans l'un puis tente de la modifier dans l'autre, une erreur survient : **ActiveRecord::RecordNotFound in TasksController#show : Couldn't find Task with 'id'="153"**. C'est pas très grave car lorsque on supprime ça supprime aussi dans la base de donnée d'où l'erreur
+
+Étant donné l'URL /tasks/999/edit (tâche inexistante), quand je l'ouvre, alors une erreur s'affiche : **ActiveRecord::RecordNotFound dans TasksController#show Impossible de trouver la tâche avec l'identifiant « 999 ».** C'est pas acceptable pour une utilisatrice.

@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   def index
     @tasks = Task.order(done: :asc, due_on: :asc)
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
@@ -20,7 +22,27 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @task.update(task_params)
+      redirect_to @task, notice: "Tâche mise à jour."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, notice: "Tâche supprimée.", status: :see_other
+  end
+
   private
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
   def task_params
     params.require(:task).permit(:title, :description, :done, :due_on, :priority)

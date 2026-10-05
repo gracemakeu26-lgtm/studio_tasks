@@ -18,3 +18,5 @@
 <% end %>
 <p><%= @task.created_at%></p>
 <%= link_to "Retour à la liste", tasks_path %>
+<%= link_to "Modifier", edit_task_path(@task) %>
+<%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" } %>
