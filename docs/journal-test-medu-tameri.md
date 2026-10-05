@@ -53,3 +53,10 @@ Jour 3 : Fiche de rôle
 - Étant donné l'adresse d'un lead qui n'est pas à moi, puis l'adresse /leads/abc, quand je les ouvre, j'arrive sur la page https://tameri.staging.conop-services.com/home. Le conseiller ne peut deviner qu'un lead existe parce que il ne voit que ceux qui lui sont assignés et l'adresse dresse d'un lead est compliqué pour qu'il puissse le déviner.
 - Étant donné la fiche d'un lead, quand je cherche le numéro WhatsApp à rappeler, 2 clics sont nécessaires.
 
+## Séance 5 — <02/10/2026> — rôle : <admin/AYAGO>
+
+- Étant donné le compte admin, quand je saisis un montant et une date d'encaissement puis que je passe un lead à « 1ère lettre d'acceptation payée », alors le lead change d'étape OK 
+- Étant donné le montant de 150 USD par lettre dans le CRM et les 300 USD annoncés sur le portail, quand je les compare, alors c'est cohérent.
+- Étant donné le compte AYAGO, quand j'ouvre la liste des leads, alors je ne vois que des leads venus d'AYAGO, sans partie financière. OK
+- Étant donné le compte AYAGO, quand je tape l'adresse de modification d'un lead (/leads/<id>/edit), alors je vérifie que la modification est refusée. OK
+- Étant donné le tableau de bord, quand je compare ses chiffres (inscrits, inscriptions terminées, accès MEDU, demandes d'accompagnement) j'ai créé 6 leads et dans le tableau de bord il y'en a 8 donc il y a écart de 2.
