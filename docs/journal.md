@@ -142,3 +142,13 @@ Avant, Task.create(title: "") passait parce qu'il n'y avait pas de validation au
 
 L'utilisation de la méthode moderne redirect_back_or_to est idéale. Elle tente de renvoyer l'utilisateur sur la page d'origine. Si cette information est absente, elle applique une route de secours. **# Redirige vers la page d'origine, ou vers la liste par défaut**
 **redirect_back_or_to tasks_path, notice: "Tâche modifiée**
+
+## Note de lecturre Jour 9
+
+- L'internationnalisation est le processus de préparer une application pour q'elle prenne en charge plusieurs langues et format régionaux
+- Un formulaire correct est celui qui respecte les règles UX du formulaire : 
+  - Le label ne se remplace jamais par un placeholder
+  - Les labels s'affiche par ordre d'iportance
+  - Contient des valeurs par défaut
+  - Les erreurs sont visibles et reliées aux champs
+- La session de test par rôle consiste à jouer chaque rôle avec leurs workflow et dans leurs conditions de travail (debout, presser, ...)

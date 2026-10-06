@@ -57,3 +57,30 @@ Le défaut ouvert est fermé le 02/10/1026 avec les preuves suivantes:
 
 • annulation : « Annuler » (annule la modification et revient à l'état précédent).
 • Bouton de validation : « Modifier la tâche » / « Mettre à jour la tâche » (soumet définitivement le formulaire)
+
+## Jour 9
+
+### La session de test : la réceptionniste. 
+
+Créer une tâche, chronomètrer le temps et compter le nombre de click 
+
+- **Appeler une cliente : Titre, échéance, priorité** 2 clics en 25s.
+- **livraison à relancer : Titre, échéance, priorité, description** 2 clics en 49s
+- **tâche terminée à cocher :** 2 clics en 10s
+
+### Problème détecté quand on fait passer une tâche non faite à faite : aucun flash et normalement les détails de la tâche ne doivent pas se voir lors de passage mais ça se voit.
+
+### Pour l'objectif des trois clics, 
+- j'ai pas plus de trois clics pour créer une tâche c'est tenu, creer un tache(prémier clic) -> remplir le formulaire -> soummettre(deuxième clic)
+- pour supprimer j'ai besoin de 3 clics c'est tenu, clic sur la tâche(prémier clic) ->  clic supprimer (deuxième clic) -> ok(troisième clic)
+- par contre pour modifier j'ai besoin de 4 clics c'est pas tenu, clic sur la tâche(prémier clic) ->  clic modifier (deuxième clic)-> remplir le formulaire -> Enregistrer les modifications(troisième clic) -> retour à la liste. le click en trop se perd pour quitter des détails après la modification pour la liste des tâches
+
+
+### La session de test : la gérante.
+
+- Étant donné la liste, quand je cherche ce qui est en retard, ce qui est important et ce qui est fait, alors ça me prend 20s pour trouver ce qui est en retard, ce qui est fait.
+### Les difficultés
+- Difficulté au niveau de la distinction entre les tâches faites et non faites -> défaut d'écran
+- Pour voir une importance il faut ouvrir la page des détails alors que c'est mieux quand c'est visible sur la liste -> défaut d'écran
+- Les tâche faites ont encore un bouton fait -> manque structurel
+- Voir les responsables des tâches : Pour la semaine prochaine

@@ -1,6 +1,23 @@
 fr:
+  activerecord:
+    models:
+      task: "Tâche"
+    attributes:
+      task:
+        title: "Titre"
+        due_on: "Échéance"
+        priority: "Priorité"
+    errors:
+      models:
+        task:
+          attributes:
+            title: 
+              blank: "est obligatoire"
+              too_long: "ne doit pas dépasser %{count} caractères"
   helpers:
     submit:
+      create: "Créer un(e) %{model}"
+      update: "Modifier ce(tte) %{model}"
       task:
         create: "Créer la tâche"
-        update: " Modifier la tâche"
+        update: "Enregistrer les modifications"
