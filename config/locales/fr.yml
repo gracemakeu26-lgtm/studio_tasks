@@ -1,0 +1,6 @@
+fr:
+  helpers:
+    submit:
+      task:
+        create: "Créer la tâche"
+        update: " Modifier la tâche"

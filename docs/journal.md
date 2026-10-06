@@ -134,3 +134,11 @@ Lorsque j'ajoute avec les DevTools <input name="task[created_at]" value="1990-01
 Ma décision sur due_on est que c'est pas obligatoire parce que la réceptionniste peut créer une tâche qui a une échéance inconnue depuis un téléphone
 
 Avant, Task.create(title: "") passait parce qu'il n'y avait pas de validation au niveau du code rien que une contrainte dans la base de données qui interdisait les titres null et pas les titre chaine vide c'est pourquoi Task.create(title: nil) ne passait pas. Maintenant avec la validation au niveau du code ni l'un ni l'autre ne passe la validation attrape nil et la chaîne vide avec un message propre ; null: false reste en base comme filet de dernier recours — deux niveaux, deux rôles
+
+## Note de lecturre Jour 8
+- On passe une tâche en local au partiel pour que le partiel soit utilisable partout 
+- button_to est utilisé avec les verbes POST, PUT, DELETE pour supprimer, soumettre ou modifier les données et link_to est uilisé avec le verbe GET pour les liens.
+- Le status 303 requis après un DELETE pour que la redirection reparte en GET
+
+L'utilisation de la méthode moderne redirect_back_or_to est idéale. Elle tente de renvoyer l'utilisateur sur la page d'origine. Si cette information est absente, elle applique une route de secours. **# Redirige vers la page d'origine, ou vers la liste par défaut**
+**redirect_back_or_to tasks_path, notice: "Tâche modifiée**

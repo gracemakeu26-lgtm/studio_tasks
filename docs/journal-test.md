@@ -53,4 +53,7 @@ Le défaut ouvert est fermé le 02/10/1026 avec les preuves suivantes:
 
 Étant donné deux onglets ouverts sur la même tâche, quand je la supprime dans l'un puis tente de la modifier dans l'autre, une erreur survient : **ActiveRecord::RecordNotFound in TasksController#show : Couldn't find Task with 'id'="153"**. C'est pas très grave car lorsque on supprime ça supprime aussi dans la base de donnée d'où l'erreur
 
-Étant donné l'URL /tasks/999/edit (tâche inexistante), quand je l'ouvre, alors une erreur s'affiche : **ActiveRecord::RecordNotFound dans TasksController#show Impossible de trouver la tâche avec l'identifiant « 999 ».** C'est pas acceptable pour une utilisatrice.
+Étant donné l'URL /tasks/999/edit (tâche inexistante), quand je l'ouvre, alors une erreur s'affiche : **ActiveRecord::RecordNotFound dans TasksController#show Impossible de trouver la tâche avec l'identifiant « 999 ».** Gravité Majeure	L'utilisateur final fait face à une page technique au lieu d'une page d'erreur 404 propre et stylisée, ce qui nuit à l'expérience et peut exposer des données sur la structure du code.
+
+• annulation : « Annuler » (annule la modification et revient à l'état précédent).
+• Bouton de validation : « Modifier la tâche » / « Mettre à jour la tâche » (soumet définitivement le formulaire)
