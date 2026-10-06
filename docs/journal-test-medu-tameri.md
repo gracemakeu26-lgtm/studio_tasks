@@ -10,7 +10,7 @@ Jour 3 : Fiche de rôle
 | **Conseiller** | Suivre les étudiants qui lui sont confiés   | CRM avec accès à ses leads           | Lead assigné → contact → suivi → progression       |
 | **Manager**    | Distribuer et superviser les leads          | Pipeline + assignation/réassignation | Nouveau lead → assignation → suivi                 |
 | **Admin**      | Administrer l'ensemble du système           | Accès complet aux leads et données   | Gestion → modification → montant → conclusion      |
-| **AYAGO**      | Suivre les étudiants envoyés à MEDU         | CRM en lecture seule sur ses leads   | Envoi étudiant → création lead → consultation      |
+| **AYAGO**      | Suivre les étudiants envoyés à MEDU         | CRM en lecture seule sur ses leads   | consultation      |
 
 ## Séance 2 — <29-09-2026> — rôle : <Etudiant>
 
@@ -60,3 +60,31 @@ Jour 3 : Fiche de rôle
 - Étant donné le compte AYAGO, quand j'ouvre la liste des leads, alors je ne vois que des leads venus d'AYAGO, sans partie financière. OK
 - Étant donné le compte AYAGO, quand je tape l'adresse de modification d'un lead (/leads/<id>/edit), alors je vérifie que la modification est refusée. OK
 - Étant donné le tableau de bord, quand je compare ses chiffres (inscrits, inscriptions terminées, accès MEDU, demandes d'accompagnement) j'ai créé 6 leads et dans le tableau de bord il y'en a 8 donc il y a écart de 2. Ces 2 autres leads n'ont pas été créé par moi mais par quelqu'un d'autre d'où l'ecart
+
+## Séance 7 — <06/10/2026>
+
+### Etudiant
+- **Son problème :** S'inscrire et présenter son projet d'études
+- **L'outil résoud-il son problème** Oui
+- **Pourquoi** Parce que un étudiant arrive sur la plateforme, il s'inscrit( entre ses informations ), présente son projet d'étude, choisit un accompagnement et accède à MEDU.
+
+### Conseiller
+- **Son problème :** Suivre les étudiants qui lui sont confiés 
+- **L'outil résoud-il son problème** Oui
+- **Pourquoi** Parce que lorsque un étudiant lui est assigné, il a la possibilité de le suivre (conttacter, envoyer un message) et de le faire progresser(contacté, prmière lettre d'acceptation payé ...).
+
+### Manager
+- **Son problème :** Distribuer et superviser les leads 
+- **L'outil résoud-il son problème** Oui
+- **Pourquoi** Il crée et assigne les leads (au conseiller ou à l'admin ) et il voit l'évolution des leads quand le conseiller les fait avancer.
+
+### Admin
+- **Son problème :** Administrer l'ensemble du système 
+- **L'outil résoud-il son problème** Oui
+- **Pourquoi** Parce que l'outil lui permet de voir qui doit faire quoi et quand (calandrier), lui montre les leads qui sont créés, lui permet d'importer les  leads, les crées, les assignés et les supprimés.
+
+### AYAGO
+- **Son problème :** Suivre les étudiants envoyés à MEDU 
+- **L'outil résoud-il son problème** Oui
+- **Pourquoi** Parce qu'il peut voir l'évolution de chaque étudiant qu'il a envoyé .
+
