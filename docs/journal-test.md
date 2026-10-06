@@ -84,3 +84,5 @@ Créer une tâche, chronomètrer le temps et compter le nombre de click
 - Pour voir une importance il faut ouvrir la page des détails alors que c'est mieux quand c'est visible sur la liste -> défaut d'écran
 - Les tâche faites ont encore un bouton fait -> manque structurel
 - Voir les responsables des tâches : Pour la semaine prochaine
+
+### Défaut d'écran voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non 
