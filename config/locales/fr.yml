@@ -1,23 +1,93 @@
 fr:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d %B %Y"
+    day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
+    abbr_day_names: [dim, lun, mar, mer, jeu, ven, sam]
+    month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
+    abbr_month_names: [~, janv., févr., mars, avr., mai, juin, juil., août, sept., oct., nov., déc.]
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y %H:%M:%S"
+    am: "am"
+    pm: "pm"
+
   activerecord:
     models:
       task: "Tâche"
+      tasks: "Tâches"
     attributes:
       task:
         title: "Titre"
         due_on: "Échéance"
         priority: "Priorité"
+        created_at: "Créée le"
+        updated_at: "Modifiée le"
     errors:
+      messages:
+        blank: "doit être rempli(e)"
+        too_long:
+          one: "est trop long (pas plus d'un caractère)"
+          other: "est trop long (pas plus de %{count} caractères)"
+        record_invalid: "La validation a échoué : %{errors}"
       models:
         task:
           attributes:
-            title: 
+            title:
               blank: "est obligatoire"
               too_long: "ne doit pas dépasser %{count} caractères"
+            due_on:
+              blank: "est obligatoire"
+            priority:
+              blank: "est obligatoire"
+              inclusion: "n'est pas valide"
+
   helpers:
+    select:
+      prompt: "Sélectionnez une option"
     submit:
       create: "Créer un(e) %{model}"
       update: "Modifier ce(tte) %{model}"
       task:
-        create: "Créer la tâche"
+        create: "Enregistrer la tâche"
         update: "Enregistrer les modifications"
+    label:
+      task:
+        title: "Titre"
+        due_on: "Échéance"
+        priority: "Priorité"
+
+  tasks:
+    index:
+      title: "Tâches"
+      new_task: "Nouvelle tâche"
+      no_tasks: "Aucune tâche pour le moment."
+      confirm_destroy: "Êtes-vous sûr de vouloir supprimer cette tâche ?"
+    new:
+      title: "Nouvelle tâche"
+    edit:
+      title: "Modifier la tâche"
+    form:
+      save: "Enregistrer"
+      cancel: "Annuler"
+      back: "Retour"
+
+  flash:
+    tasks:
+      create:
+        notice: "La tâche a été créée avec succès."
+      update:
+        notice: "La tâche a été mise à jour avec succès."
+      destroy:
+        notice: "La tâche a été supprimée avec succès."
+      failure:
+        alert: "La tâche n'a pas pu être enregistrée."

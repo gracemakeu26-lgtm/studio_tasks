@@ -58,7 +58,7 @@ Le défaut ouvert est fermé le 02/10/1026 avec les preuves suivantes:
 • annulation : « Annuler » (annule la modification et revient à l'état précédent).
 • Bouton de validation : « Modifier la tâche » / « Mettre à jour la tâche » (soumet définitivement le formulaire)
 
-## Jour 9
+## Jour 9 06/10/2026
 
 ### La session de test : la réceptionniste. 
 
@@ -82,7 +82,9 @@ Créer une tâche, chronomètrer le temps et compter le nombre de click
 ### Les difficultés
 - Difficulté au niveau de la distinction entre les tâches faites et non faites -> défaut d'écran
 - Pour voir une importance il faut ouvrir la page des détails alors que c'est mieux quand c'est visible sur la liste -> défaut d'écran
-- Les tâche faites ont encore un bouton fait -> manque structurel
-- Voir les responsables des tâches : Pour la semaine prochaine
+- Les tâche faites ont encore un bouton fait -> défaut d'écran
+- Voir les responsables des tâches -> manque structurel(manque le responsable de la tâche)  
 
 ### Défaut d'écran voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non 
+
+Après correction la gérante prend 16s pour trouver ce qui est iportant, ce qui est en retart, et ce qui est fait.

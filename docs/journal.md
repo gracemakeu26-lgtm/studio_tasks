@@ -152,3 +152,11 @@ L'utilisation de la méthode moderne redirect_back_or_to est idéale. Elle tente
   - Contient des valeurs par défaut
   - Les erreurs sont visibles et reliées aux champs
 - La session de test par rôle consiste à jouer chaque rôle avec leurs workflow et dans leurs conditions de travail (debout, presser, ...)
+Les messages d'erreur et les libéllés vivent dans le fichier config/local/fr.yml, option config.i18n.default_locale = :fr, avec les clés activerecord.attributes, activerecord.errors.
+Un exemple de défaut d'écran voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non 
+Un exemple de manque structurelle Voir les responsables des tâches
+
+### Passe UX du formulaire
+
+Les raisons de changement du formulaire c'est pour le UX (ordre des champs, priorité par défaut, boutton, placeholder) 
+
