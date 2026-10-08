@@ -177,3 +177,89 @@ Les raisons de changement du formulaire c'est pour le UX (ordre des champs, prio
 * Je décide un redirect_to diférend parce que je veux que après la mise à jour que l'utilisatrice arrive directement sur la liste des tâches au lieux d'arriver sur les détails avant de retourner sur la liste.
 * Le placeholder sur le champ date : ton _form.html.erb met placeholder: "jj-mm-aaaa" sur un date_field . Dans le navigateur le placeholder c'est plutôt "jj/mm/aaaa.J'ai supprimer le placeholder de date_field
 
+## ## Section du 08/10/2026
+
+### Comparer mon CRUD à un scaffold Rails dans une branche jetable
+
+### 3 choses faite de la même façon que moi :
+
+- Le partial _form.html.erb pour le formulaire utilisé dans new et edit
+- La migration pour creer le schéma de données
+- Les routes avec resources :notes
+
+### 1 chose que le scaffold fait différemment que moi 
+
+- Au niveau du controller pour la création, la mise à jour et la suppression il y a deux formats de données qui sont spécifié : html et json moi je n'ai pas ça dans mon controller
+```ruby
+class NotesController < ApplicationController
+  before_action :set_note, only: %i[ show edit update destroy ]
+
+  # GET /note or /notes.json
+  def index
+    @notes = Note.all
+  end
+
+  # GET /notes/1 or /notes/1.json
+  def show
+  end
+
+  # GET /notes/new
+  def new
+    @note = Note.new
+  end
+
+  # GET /notes/1/edit
+  def edit
+  end
+
+  # POST /notes or /notes.json
+  def create
+    @note = Note.new(note_params)
+
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to @note, notice: "Note was successfully created." }
+        format.json { render :show, status: :created, location: @note }
+      else
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @note.errors, status: :unprocessable_content }
+      end
+    end
+  end
+
+  # PATCH/PUT /notes/1 or /notes/1.json
+  def update
+    respond_to do |format|
+      if @note.update(note_params)
+        format.html { redirect_to @note, notice: "Note was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @note }
+      else
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @note.errors, status: :unprocessable_content }
+      end
+    end
+  end
+
+  # DELETE /notes/1 or /notes/1.json
+  def destroy
+    @note.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to notes_path, notice: "Note was successfully destroyed.", status: :see_other }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_note
+      @note = Note.find(params.expect(:id))
+    end
+
+    # Only allow a list of trusted parameters through.
+    def note_params
+      params.expect(note: [ :title, :body ])
+    end
+end
+```
+
