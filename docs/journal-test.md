@@ -92,3 +92,10 @@ quand on fait passer une tâche non faite à faite : aucun flash et normalement 
 voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non.
 
 Après correction la gérante prend **16s** pour trouver ce qui est iportant, ce qui est en retart, et ce qui est fait.
+
+## ## Section 08/10/2026
+
+### Rembourser la dette : gérer une tâche introuvable dans set_task
+
+- Etant donné le défaut ouvert avec l'UEL /tasks/999 quand je l'ouvre alors il apparait un flash qui dit : Cette tâche n'existe pas ou a été supprimée. Donc le défaut est férmé
+- Étant donné deux onglets, quand je supprime la tâche dans l'un puis l'enregistre dans l'autre, alors je vois ce même comportement. Défaut férmé
