@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.order(done: :asc, due_on: :asc)
+    @tasks = Task.order(done: :asc, due_on: :asc, priority: :desc)
   end
 
   def show
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path(@task), notice: "Tâche modifiée."
+      redirect_to tasks_path, notice: "Tâche modifiée."
     else
       render :edit, status: :unprocessable_entity
     end

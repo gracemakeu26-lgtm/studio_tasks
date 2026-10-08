@@ -263,3 +263,8 @@ class NotesController < ApplicationController
 end
 ```
 
+##  La revue de code de ta propre semaine. 
+
+### Dans tasks_controller.rb, dans update, il y avait un chemin redirect_to tasks_path(@tasks) pour le retour sur la liste des tâches après modification j'ai supprimer (@tasks) parce que tasks_path est déjà le chemin qui mènne à la liste des tâches 
+
+### Toujours dans tasks_controller.rb, dans index, j'ai ajouter priority: :desc pour le classement par ordre de priorité

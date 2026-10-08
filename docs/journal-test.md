@@ -99,3 +99,61 @@ Après correction la gérante prend **16s** pour trouver ce qui est iportant, ce
 
 - Etant donné le défaut ouvert avec l'UEL /tasks/999 quand je l'ouvre alors il apparait un flash qui dit : Cette tâche n'existe pas ou a été supprimée. Donc le défaut est férmé
 - Étant donné deux onglets, quand je supprime la tâche dans l'un puis l'enregistre dans l'autre, alors je vois ce même comportement. Défaut férmé
+
+### Mener la campagne de test n°2 (15 cas au moins, par rôle, avec gravités)
+
+#### Réceptionniste : son workflow Elle ouvre l'appli → Elle crée rapidement une tâche. → Elle ajoute les détails et le niveau d’urgence. → l'assigne → Elle suit son état : à faire, en cours ou terminée.→ est notifiée quand c'est fait
+
+#### Cas 1
+Créer une  tâche → Tâche créée et classée selon la date et la priorité → Tâche crée classée selon la date mais pas selon la priorité → Tolérable
+
+#### Cas 2
+Modifier une  tâche → Tâche modifiée et classée selon la date et la priorité → Tâche modifiée classée selon la date mais pas selon la priorité → Tolérable
+
+#### Cas 3
+Supprimer une  tâche → Tâche supprimée → Tâche supprimée → Correct
+
+#### Cas 4
+Titre vide → Tâche non créée → Tâche non créée : erreur  → Correct
+
+#### Gérante : son workflow Elle ouvre l'appli → voit les tâches en retard en premier → crée une tâche → l'assigne → est notifiée quand c'est fait
+
+#### Cas 5
+Titre trop long → Tâche non créée → Tâche non créée : erreur → Correct
+
+#### Cas 6
+Priorité forgée → Tâche non créée → Tâche non créée : erreur → Correct
+
+#### Cas 7
+Double soumission → Tâche créée à la prémière soumission erreur à la deuxième → Tâche créée à la prémière soumission erreur à la deuxième → Correct
+
+#### Cas 8
+Onglets concurrents → Prémier onglet réagit sans erreur, deuxième onglet génère une erreur → Prémier onglet réagit sans erreur, deuxième onglet génère une erreur → Correct
+
+#### Cas 9
+Ids inexistant → Erreur et retour sur la liste des tâches → Erreur et retour sur la liste des tâches → Correct
+
+#### Cas 10
+Navigation clavier → Remplir le formulaire et créer la tâche → Tâche créée → Correct
+
+#### Cas 11
+Test avec l'url /tasks/abc → Retour sur la liste avec un flash → Retour sur la liste avec un flash → Correct
+
+#### Cas 12
+Message trop long → Tâche non créée : erreur  → Tâche non créée : erreur → Correct
+
+#### Cas 13
+Modification avec titre vide → Tâche non créée : erreur  → Tâche non créée : erreur → Correct
+
+#### Cas 14
+Échéance vide → Tâche créée → Tâche non créée → Correct
+
+#### Cas 15
+Message trop long → Tâche non créée : erreur  → Tâche non créée : erreur → Correct
+
+### Synthèse
+
+D'après cette campagne, ce qui marche c'est la création d'une tâche, la modification d'une tâche, la suppression d'une tâche, la navigation au clavier pour remplir le formulaire et entré pour soumettre. Pour le rôle de l'esthéticienne il faut assiger les tâches qui est un manque structurel (à compléter la semaine prochaine). Pour un défaut ouvert c'est le fait que les tâches soient classées seulement par ordre de date alors qu'elles doivent être par ordre de date et de priorité
+
+
+
