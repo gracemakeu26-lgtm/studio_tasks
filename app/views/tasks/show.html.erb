@@ -1,22 +1,24 @@
-<h1><%= @task.title %></h1>
-<p><%= @task.description%></p>
-<p><%= @task.due_on%></p>
-<% case @task.priority %>
-<% when 0 %>
-  <p> Basse</p>
-<% when 1 %>
-  <p> Normale</p>
-<% when 2 %>
-  <p> Haute</p>
-<% end %>
+<div class="task">
+  <h1><%= @task.title %></h1>
+  <p class="description"><%= @task.description%></p>
+  <p class="due-on"><%= @task.due_on%></p>
+  <% case @task.priority %>
+  <% when 0 %>
+    <p class="priority"> Basse</p>
+  <% when 1 %>
+    <p class="priority"> Normale</p>
+  <% when 2 %>
+    <p class="priority"> Haute</p>
+  <% end %>
 
-<% case @task.done %>
-<% when true %>
-  <p> Fait</p>
-<% when false %>
-  <p> Non fait</p>
-<% end %>
-<p><%= @task.created_at%></p>
-<%= link_to "Retour à la liste", tasks_path %>
-<%= link_to "Modifier", edit_task_path(@task) %>
-<%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" } %>
+  <% case @task.done %>
+  <% when true %>
+    <p class="done"> Fait</p>
+  <% when false %>
+    <p class="not-done"> Non fait</p>
+  <% end %>
+  <p><%= @task.created_at%></p>
+  <%= link_to "Retour à la liste", tasks_path, class: "button-link" %>
+  <%= link_to "Modifier", edit_task_path(@task), class: "button-link" %>
+  <%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" }, class: "button-link danger" %>
+</div>

@@ -1,22 +1,27 @@
 <% @tasks.each do |task| %>
-  <h2><%= link_to task.title, task_path(task) %></h2>
-
-  <% unless task.done %>
-    <% if task.due_on.present? %>
-      <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
-    <% else %>
-      <p>Pas d’échéance</p>
-    <% end %>
-    <p>Priorité: <%= task.priority == 0 ? "Basse" : task.priority == 1 ? "Normale" : "Haute" %></p>
-  <% end %>
-
-  <p><%= task.done ? "Faite" : "Non faite" %></p>
-  <%= button_to "Fait", task_path(task), method: :patch, params: { task: { done: true} } %>
+  <div class="task_index">
+    <div class="task_index-grid">
+      <h2><%= link_to task.title, task_path(task) %></h2>
+      <% unless task.done %>
+        <% if task.due_on.present? %>
+          <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
+        <% else %>
+          <p>Pas d’échéance</p>
+        <% end %>
+        <p><%= task.priority == 0 ? "Basse" : task.priority == 1 ? "Normale" : "Haute" %></p>
+      <% end %>
+      <p><%= task.done ? "Faite" : "Non faite" %></p>
+      <% unless task.done %>
+        <%= button_to "Fait", task_path(task), class: "buttonLink primary", method: :patch, params: { task: { done: true} } %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
+
 
 <% if @tasks.empty? %>
   <p>Aucune tâche pour l'instant — créez la première</p>
-  <%= link_to "Nouvelle tâche", new_task_path %>
+  <%= link_to "Nouvelle tâche", new_task_path, class: "buttonLink secondary" %>
 <% end %>
 
-<%= link_to "Créer une tâche", new_task_path %>
+<%= link_to "Créer une tâche", new_task_path, class: "buttonLink primary" %>

@@ -59,7 +59,7 @@ Jour 3 : Fiche de rôle
 - Étant donné le montant de 150 USD par lettre dans le CRM et les 300 USD annoncés sur le portail, on a 150 USD par lettre et il faut 2 lettres pour un total de 300 USD et au portail on demande 300 USD pour les lettres, quand je les compare, alors c'est cohérent.
 - Étant donné le compte AYAGO, quand j'ouvre la liste des leads, alors je ne vois que des leads venus d'AYAGO, sans partie financière. OK
 - Étant donné le compte AYAGO, quand je tape l'adresse de modification d'un lead (/leads/<id>/edit), alors je vérifie que la modification est refusée. OK
-- Étant donné le tableau de bord, quand je compare ses chiffres (inscrits, inscriptions terminées, accès MEDU, demandes d'accompagnement) j'ai créé 6 leads et dans le tableau de bord il y'en a 8 donc il y a écart de 2. Ces 2 autres leads n'ont pas été créé par moi mais par quelqu'un d'autre d'où l'ecart
+- Étant donné le tableau de bord, quand je compare ses chiffres (inscrits, inscriptions terminées, accès MEDU, demandes d'accompagnement) j'ai créé 6 leads et dans le tableau de bord il y'en a 8 donc il y a écart de 2. Ces 2 autres leads n'ont pas été créé par moi mais par quelqu'un d'autre d'où l'ecart de de 2 mais il y a réellement 8(6 que j'ai créé + 2 de quelqu'un d'autre = 8) leads donc c'est pas un bug
 
 ## Séance 7 — <06/10/2026>
 
@@ -87,4 +87,6 @@ Jour 3 : Fiche de rôle
 - **Son problème :** Suivre les étudiants envoyés à MEDU 
 - **L'outil résoud-il son problème** Oui
 - **Pourquoi** Parce qu'il peut voir l'évolution de chaque étudiant qu'il a envoyé .
+
+### Les 3 meilleures trouvailles de la critique par rôle
 

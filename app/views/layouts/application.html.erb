@@ -25,14 +25,16 @@
 
   <body>
     <%= yield %>
-      <% if notice %><p class="flash flash--notice"><%= notice %></p><% end %>
-      <% if alert %><p class="flash flash--alert"><%= alert %></p><% end %>
+      <% if notice %><p class="notice flash--notice"><%= notice %></p><% end %>
+      <% if alert %><p class="alert flash--alert"><%= alert %></p><% end %>
       <% if @task&.errors&.any? %>
         <div class="form-errors" role="alert">
           <h2><%= @task.errors.count %> erreur(s) empêchent l'enregistrement :</h2>
           <ul>
             <% @task.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+               <div class="error_notification">
+                <li><%= message %></li>
+              </div>
             <% end %>
           </ul>
         </div>

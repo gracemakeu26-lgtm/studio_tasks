@@ -37,7 +37,7 @@ price                       # 40
 
 ---
 
-## Rituel du soir (jour 1)
+## Rituel du soir ( 24/09/2026)
 
 - **Pourquoi RVM plutôt qu'un Ruby système ?** Parce que RVM permet d'installer plusieurs versions de Ruby pour permettre de travailler sur des projets qui utilisent des versions différentes.
 - **À quoi sert le `Gemfile.lock` ?** Il gère et fige les versions exactes de gem.
@@ -107,56 +107,73 @@ Le numéro `1` va dans l'objet `params[:id]` du contrôleur, ce qui permet de l'
 - **`Task.create(title: "")`** : la contrainte empêche de créer un titre `nil` mais pas un titre vide — ça, c'est au code de le faire.
 - **`Task.find(999)`** : l'id `999` n'existe pas dans la base de données.
 
-## Note de lecture du jour 6
+## ## Note de lecture du 01/10/2026
 
-- Pour la création d'une tâche il faut deux actions : une pour ouvrir le formulaire de creation (GET /tasks/new new) et l'autre pour recevoir les informations et les enregistrées (POST /tasks create)
-- Les données envoyées par la requête sont disponibles dans les paramètres
-- Pour créer un formulaire on utilise la méthode <%= form_with %> et pour construire à partir d'un modèle c'est <%= form_with model : @task do |form| %>
-- Pour eviter l'attaque par mass assignment on utilise les strong parameters qui designe les champs obligatoires du formulaire et fait en sorte que lors de la soumission du formulaire si un champ qui n'est pas désigné est introduit, ce dernier est rejeté en silence
+* Pour la création d'une tâche il faut deux actions : une pour ouvrir le formulaire de creation (`GET /tasks/new` -> `new`) et l'autre pour recevoir les informations et les enregistrées (`POST /tasks` -> `create`)
+* Les données envoyées par la requête sont disponibles dans les paramètres
+* Pour créer un formulaire on utilise la méthode `<%= form_with %>` et pour construire à partir d'un modèle c'est `<%= form_with model : @task do |form| %>`
+* Pour eviter l'attaque par mass assignment on utilise les strong parameters qui designe les champs obligatoires du formulaire et fait en sorte que lors de la soumission du formulaire si un champ qui n'est pas désigné est introduit, ce dernier est rejeté en silence
 
-Le champ caché <input type="hidden" name="authenticity_token" value="EtX2BTuA0lajWPslZyCYhCsWdErJourZUP5r_CKNqxRXTpGy0ALmUFXqdwidd37YvFn3eQFR1QXz_ZyjQ296Kw">
-method = "post", les names: task[title], task[description], task[done], task[due_on], task[priority]
+Le champ caché `<input type="hidden" name="authenticity_token" value="EtX2BTuA0lajWPslZyCYhCsWdErJourZUP5r_CKNqxRXTpGy0ALmUFXqdwidd37YvFn3eQFR1QXz_ZyjQ296Kw">`
+* `method = "post"`
+* les names: `task[title]`, `task[description]`, `task[done]`, `task[due_on]`, `task[priority]`
 
 Les données sont dans la réponse de la requête.
 
-La réponse a le statut 302 a cause redirect_to tasks_path qui est le statut par défaut et le navigateur envoie une requête GET vers l'url
+La réponse a le statut `302` a cause `redirect_to tasks_path` qui est le statut par défaut et le navigateur envoie une requête GET vers l'url.
 
-Lorsque j'ajoute avec les DevTools <input name="task[created_at]" value="1990-01-01"> et que je soumets, alors je vérifie en console que created_at de la tâche créée n'est PAS 1990, et je retrouve la ligne Unpermitted parameter dans log/development.log
+Lorsque j'ajoute avec les DevTools `<input name="task[created_at]" value="1990-01-01">` et que je soumets, alors je vérifie en console que `created_at` de la tâche créée n'est PAS 1990, et je retrouve la ligne *Unpermitted parameter* dans `log/development.log`.
 
-Étant donné :priority retiré de permit(...), quand je soumets une tâche en priorité haute, alors je constate que la priorité est perdue sans aucune erreur (reste normale), puis je remets :priority
+Étant donné `:priority` retiré de `permit(...)`, quand je soumets une tâche en priorité haute, alors je constate que la priorité est perdue sans aucune erreur (reste normale), puis je remets `:priority`.
 
-### **La leçon : oublier un champ dans permit est un bug silencieux, les logs sont le seul témoin.**
+### ### **La leçon : oublier un champ dans permit est un bug silencieux, les logs sont le seul témoin.**
 
-## Jour 7
+---
 
-### Ex. 7.1
+## ## Section de 02/10/2026
 
-Ma décision sur due_on est que c'est pas obligatoire parce que la réceptionniste peut créer une tâche qui a une échéance inconnue depuis un téléphone
+### ### Ex. 7.1
 
-Avant, Task.create(title: "") passait parce qu'il n'y avait pas de validation au niveau du code rien que une contrainte dans la base de données qui interdisait les titres null et pas les titre chaine vide c'est pourquoi Task.create(title: nil) ne passait pas. Maintenant avec la validation au niveau du code ni l'un ni l'autre ne passe la validation attrape nil et la chaîne vide avec un message propre ; null: false reste en base comme filet de dernier recours — deux niveaux, deux rôles
+Ma décision sur `due_on` est que c'est pas obligatoire parce que la réceptionniste peut créer une tâche qui a une échéance inconnue depuis un téléphone.
 
-## Note de lecturre Jour 8
-- On passe une tâche en local au partiel pour que le partiel soit utilisable partout 
-- button_to est utilisé avec les verbes POST, PUT, DELETE pour supprimer, soumettre ou modifier les données et link_to est uilisé avec le verbe GET pour les liens.
-- Le status 303 requis après un DELETE pour que la redirection reparte en GET
+Avant, `Task.create(title: "")` passait parce qu'il n'y avait pas de validation au niveau du code rien que une contrainte dans la base de données qui interdisait les titres null et pas les titre chaine vide c'est pourquoi `Task.create(title: nil)` ne passait pas. Maintenant avec la validation au niveau du code ni l'un ni l'autre ne passe la validation attrape nil et la chaîne vide avec un message propre ; `null: false` reste en base comme filet de dernier recours — deux niveaux, deux rôles.
 
-L'utilisation de la méthode moderne redirect_back_or_to est idéale. Elle tente de renvoyer l'utilisateur sur la page d'origine. Si cette information est absente, elle applique une route de secours. **# Redirige vers la page d'origine, ou vers la liste par défaut**
-**redirect_back_or_to tasks_path, notice: "Tâche modifiée**
+---
 
-## Note de lecturre Jour 9
+## ## Note de lecturre du 05/10/20026
 
-- L'internationnalisation est le processus de préparer une application pour q'elle prenne en charge plusieurs langues et format régionaux
-- Un formulaire correct est celui qui respecte les règles UX du formulaire : 
-  - Le label ne se remplace jamais par un placeholder
-  - Les labels s'affiche par ordre d'iportance
-  - Contient des valeurs par défaut
-  - Les erreurs sont visibles et reliées aux champs
-- La session de test par rôle consiste à jouer chaque rôle avec leurs workflow et dans leurs conditions de travail (debout, presser, ...)
-Les messages d'erreur et les libéllés vivent dans le fichier config/local/fr.yml, option config.i18n.default_locale = :fr, avec les clés activerecord.attributes, activerecord.errors.
-Un exemple de défaut d'écran voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non 
-Un exemple de manque structurelle Voir les responsables des tâches
+* On passe une tâche en local au partiel pour que le partiel soit utilisable partout 
+* `button_to` est utilisé avec les verbes POST, PUT, DELETE pour supprimer, soumettre ou modifier les données et `link_to` est uilisé avec le verbe GET pour les liens.
+* Le status `303` requis après un DELETE pour que la redirection reparte en GET
 
-### Passe UX du formulaire
+L'utilisation de la méthode moderne `redirect_back_or_to` est idéale. Elle tente de renvoyer l'utilisateur sur la page d'origine. Si cette information est absente, elle applique une route de secours. 
 
-Les raisons de changement du formulaire c'est pour le UX (ordre des champs, priorité par défaut, boutton, placeholder) 
+**# Redirige vers la page d'origine, ou vers la liste par défaut**  
+**`redirect_back_or_to tasks_path, notice: "Tâche modifiée"`**
+
+---
+
+## ## Note de lecture du 06/10/2026
+
+* L'internationnalisation est le processus de préparer une application pour q'elle prenne en charge plusieurs langues et format régionaux
+* Un formulaire correct est celui qui respecte les règles UX du formulaire : 
+  * Le label ne se remplace jamais par un placeholder
+  * Les labels s'affiche par ordre d'iportance
+  * Contient des valeurs par défaut
+  * Les erreurs sont visibles et reliées aux champs
+* La session de test par rôle consiste à jouer chaque rôle avec leurs workflow et dans leurs conditions de travail (debout, presser, ...)
+
+Les messages d'erreur et les libéllés vivent dans le fichier `config/local/fr.yml`, option `config.i18n.default_locale = :fr`, avec les clés `activerecord.attributes`, `activerecord.errors`.
+
+* **Un exemple de défaut d'écran :** voir l'importance sur la liste pour la gérante afin que quand elle voit la liste elle voit les taches, leurs importances, leurs échéances, faite ou non 
+* **Un exemple de manque structurelle :** Voir les responsables des tâches
+
+### ### Passe UX du formulaire
+
+Les raisons de changement du formulaire c'est pour le UX (ordre des champs, priorité par défaut, boutton, placeholder)
+
+## ## Section du 07/10/2026
+
+* Je décide un redirect_to diférend parce que je veux que après la mise à jour que l'utilisatrice arrive directement sur la liste des tâches au lieux d'arriver sur les détails avant de retourner sur la liste.
+* Le placeholder sur le champ date : ton _form.html.erb met placeholder: "jj-mm-aaaa" sur un date_field . Dans le navigateur le placeholder c'est plutôt "jj/mm/aaaa.J'ai supprimer le placeholder de date_field
 
