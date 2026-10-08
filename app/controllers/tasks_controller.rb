@@ -42,6 +42,8 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tasks_path,  alert: "Cette tâche n'existe pas ou a été supprimée."
   end
 
   def task_params
