@@ -150,7 +150,7 @@ Pour lancer la suite de tests :
 ```bash
 bin/rails test
 ```
-
+Le journal de test se trouve dans `docs/journal-test.md`
 ## Contribution
 
 Les contributions sont bienvenues. Pour proposer une amélioration :

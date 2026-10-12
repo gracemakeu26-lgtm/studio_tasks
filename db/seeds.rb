@@ -10,3 +10,8 @@ Task.create!(title: "Réapprovisionner les shampoings", due_on: Date.yesterday, 
 Task.create!(title: "Commander les colorations", due_on: Date.today + 2, priority: 0, done: true)
 Task.create!(title: "Nettoyer les bacs à shampooing", due_on: Date.today + 1, priority: 2)
 Task.create!(title: "Rappeler les clientes pour leur suivi", due_on: Date.today + 2, priority: 1, done: true)
+
+User.delete_all
+User.create!(name: "Alice", email_address: " gerante@studio-lumiere.fr", role: "manager", password: "password" ) # DEV ONLY
+User.create!(name: "Bob", email_address: " esthetician@studio-lumiere.fr", role: "esthetician", password: "password" ) # DEV ONLY
+User.create!(name: "Charlie", email_address: " receptionist@studio-lumiere.fr", role: "receptionist", password: "password" ) # DEV ONLY

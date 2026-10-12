@@ -268,3 +268,29 @@ end
 ### Dans tasks_controller.rb, dans update, il y avait un chemin redirect_to tasks_path(@tasks) pour le retour sur la liste des tâches après modification j'ai supprimer (@tasks) parce que tasks_path est déjà le chemin qui mènne à la liste des tâches 
 
 ### Toujours dans tasks_controller.rb, dans index, j'ai ajouter priority: :desc pour le classement par ordre de priorité
+
+## ## Section du 12/10/2026
+
+| Fichier                                    | Action                                                                                                                                                                                                               |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | ce fichier contient le modèle de l'utilisateur avec vérification sécurisée du mot de passe, sessions associées et normalisation de l’adresse courriel en minuscules sans espaces.|
+| Session | ce fichier contient le modèle d'une session rattachée à l'utilisateur |
+| le concern Authentication | Logique commune d’authentification : reprend la session depuis le cookie, redirige les visiteurs non connectés et crée ou termine une session. |
+| Current | Conserve la session de l'utilisateur courant pendant une requête |
+| SessionsController#create | Affiche le formulaire de création  |
+| la ligne has_secure_password | Vérification sécurisé du mot de passe |
+
+- Le garde qui protège toutes les pages est situé dans controller/application_controller.rb à la ligne 2 (include Authentication)
+
+- Étant donné une migration AddNameAndRoleToUsers (name:string, role:string, null: false sur les deux), quand je la RELIS avant de la lancer, alors je vérifie que le nom et le rôle ne peuvent être nuls.
+
+- Preuve que le mot de passe en clair n'existe nulle part en base : ` "$2a$12$IwEPFUx9w29IK4QDg.OjbuQJ5tLjxnOecCgDY3HJ4c0advfBwrrfK" `
+
+- Étant donné le serveur lancé, quand je visite /tasks déconnectée, alors je suis redirigée vers la connexion ci-dessous : 
+![Ecran de connexion](/docs/captures/ecran-connexion.png)
+
+- Étant donné la connexion au compte gérante, quand j'ouvre DevTools → Application → Cookies, alors je trouve le cookie de session, je note qu'il est illisible (suite de lettre et de chiffre) et que HttpOnly (inaccessible au javascript de la page) est coché.
+
+- Étant donné le cookie modifié à la main, quand je recharge, alors  la page se recharge et me redirige instantanément vers l'écran de connexion. Un nouveau cookie de session vierge remplace celui qui a été modifié. Parce que le serveur a ajouté une signature au cookie pour garantir son authenticité.
+
+- Étant donné un button_to « Se déconnecter » (session_path, method: :delete) ajouté au layout, quand je clique, alors je reviens à l'écran de connexion(redirection -> connexion -> accès -> deconnexion -> redirection)
