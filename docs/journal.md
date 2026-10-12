@@ -271,6 +271,16 @@ end
 
 ## ## Section du 12/10/2026
 
+
+### Note de lecture 
+
+- **Stateless :** C'est lorsque le serveur ne garde aucune historique des requêtes précédentes
+- **Cookie signé :** Un cookie signé est un petit fichier texte stocké sur le navigateur du client, dont le contenu est accompagné d'une signature cryptographique générée par le serveur. 
+- **Session en base :** C'est la méthode traditionnelle de gestion de l'état (stateful) sur le Web.
+Lorsqu'un client se connecte, le serveur crée un identifiant unique et aléatoire (le Session ID ). 
+- **Digest BCrypt (Empreinte BCrypt) :** Un digest BCrypt (ou empreinte/hachage BCrypt) est le résultat de la transformation d'un mot de passe en une chaîne de caractères illisible et irréversible grâce à l'algorithme BCrypt .
+- Le message d'échec pour le mauvais mot de passe et l'email incorrect c'est pour que si un attaquant tente de se connecter qu'il ne sache pas réellement où il a fait l'erreur lors de la connexion
+
 | Fichier                                    | Action                                                                                                                                                                                                               |
 | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | User | ce fichier contient le modèle de l'utilisateur avec vérification sécurisée du mot de passe, sessions associées et normalisation de l’adresse courriel en minuscules sans espaces.|
