@@ -1,24 +1,38 @@
-<div class="task">
-  <h1><%= @task.title %></h1>
-  <p class="description"><%= @task.description%></p>
-  <p class="due-on"><%= @task.due_on%></p>
-  <% case @task.priority %>
-  <% when 0 %>
-    <p class="priority"> Basse</p>
-  <% when 1 %>
-    <p class="priority"> Normale</p>
-  <% when 2 %>
-    <p class="priority"> Haute</p>
+<main class="task-detail">
+  <p class="tasks-kicker">STUDIO LUMIÈRE <span>·</span> DÉTAIL</p>
+  <header class="task-detail-header">
+    <h1><%= @task.title %></h1>
+    <span class="task-state <%= @task.done ? 'state-done' : 'state-open' %>"><%= @task.done ? "Terminée" : "À faire" %></span>
+  </header>
+
+  <% if @task.description.present? %>
+    <p class="task-description"><%= @task.description %></p>
   <% end %>
 
-  <% case @task.done %>
-  <% when true %>
-    <p class="done"> Fait</p>
-  <% when false %>
-    <p class="not-done"> Non fait</p>
-  <% end %>
-  <p><%= @task.created_at%></p>
-  <%= link_to "Retour à la liste", tasks_path, class: "button-link" %>
-  <%= link_to "Modifier", edit_task_path(@task), class: "button-link" %>
-  <%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" }, class: "button-link danger" %>
-</div>
+  <dl class="task-detail-meta">
+    <div>
+      <dt>Responsable</dt>
+      <dd><%= @task.user&.name || "Non assignée" %></dd>
+    </div>
+    <div>
+      <dt>Échéance</dt>
+      <dd><%= @task.due_on ? @task.due_on.strftime("%d/%m/%Y") : "Sans échéance" %></dd>
+    </div>
+    <div>
+      <dt>Priorité</dt>
+      <dd><span class="priority-tag priority-<%= @task.priority %>"><%= %w[Basse Normale Haute][@task.priority] %></span></dd>
+    </div>
+    <div>
+      <dt>Créée le</dt>
+      <dd><%= @task.created_at.strftime("%d/%m/%Y à %H:%M") %></dd>
+    </div>
+  </dl>
+
+  <footer class="task-detail-actions">
+    <%= link_to "Retour à la liste", tasks_path, class: "task-back" %>
+    <div>
+      <%= link_to "Modifier", edit_task_path(@task), class: "task-edit" %>
+      <%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" }, class: "task-delete" %>
+    </div>
+  </footer>
+</main>

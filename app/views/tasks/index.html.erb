@@ -1,27 +1,69 @@
-<% @tasks.each do |task| %>
-  <div class="task_index">
-    <div class="task_index-grid">
-      <h2><%= link_to task.title, task_path(task) %></h2>
-      <% unless task.done %>
-        <% if task.due_on.present? %>
-          <p><%= task.due_on < Date.today ? "En retard" : task.due_on %></p>
-        <% else %>
-          <p>Pas d’échéance</p>
-        <% end %>
-        <p><%= task.priority == 0 ? "Basse" : task.priority == 1 ? "Normale" : "Haute" %></p>
-      <% end %>
-      <p><%= task.done ? "Faite" : "Non faite" %></p>
-      <% unless task.done %>
-        <%= button_to "Fait", task_path(task), class: "buttonLink primary", method: :patch, params: { task: { done: true} } %>
-      <% end %>
+<main class="tasks-page">
+  <header class="tasks-header">
+    <div>
+      <p class="tasks-kicker">STUDIO LUMIÈRE <span>·</span> ÉQUIPE</p>
+      <h1>Tâches</h1>
     </div>
-  </div>
-<% end %>
+    <%= link_to "＋ Nouvelle tâche", new_task_path, class: "task-create" %>
+  </header>
 
+  <nav class="task-filters" aria-label="Filtrer les tâches">
+    <%= link_to "Toutes", tasks_path, class: (params[:filter].blank? ? "task-filter is-active" : "task-filter") %>
+    <%= link_to "En cours", tasks_path(filter: "open_tasks"), class: (params[:filter] == "open_tasks" ? "task-filter is-active" : "task-filter") %>
+    <%= link_to "En retard", tasks_path(filter: "overdue"), class: (params[:filter] == "overdue" ? "task-filter is-active" : "task-filter") %>
+    <%= link_to "Non assignées", tasks_path(filter: "unassigned"), class: (params[:filter] == "unassigned" ? "task-filter is-active" : "task-filter") %>
+  </nav>
 
-<% if @tasks.empty? %>
-  <p>Aucune tâche pour l'instant — créez la première</p>
-  <%= link_to "Nouvelle tâche", new_task_path, class: "buttonLink secondary" %>
-<% end %>
+  <section class="task-list" aria-label="Liste des tâches">
+    <div class="task-list-heading" aria-hidden="true">
+      <span>Tâche</span>
+      <span>Échéance</span>
+      <span>Priorité</span>
+      <span>État</span>
+      <span></span>
+    </div>
 
-<%= link_to "Créer une tâche", new_task_path, class: "buttonLink primary" %>
+    <% @tasks.each do |task| %>
+      <article class="task-row <%= 'is-complete' if task.done %> <%= 'is-overdue' if !task.done && task.due_on.present? && task.due_on < Date.current %>">
+        <div class="task-row-main">
+          <span class="task-status-mark" aria-hidden="true"></span>
+          <div>
+            <h2><%= link_to task.title, task_path(task) %></h2>
+            <p class="task-assignee"><%= task.user&.name || "Non assignée" %></p>
+          </div>
+        </div>
+
+        <div class="task-row-meta task-row-due">
+          <% if task.due_on.present? %>
+            <span class="task-meta-label"><%= !task.done && task.due_on < Date.current ? "En retard" : "Le" %></span>
+            <span><%= task.due_on.strftime("%d/%m/%Y") %></span>
+          <% else %>
+            <span class="task-no-due">Sans échéance</span>
+          <% end %>
+        </div>
+
+        <div class="task-row-meta">
+          <span class="priority-tag priority-<%= task.priority %>"><%= %w[Basse Normale Haute][task.priority] %></span>
+        </div>
+
+        <div class="task-row-meta">
+          <span class="task-state <%= task.done ? 'state-done' : 'state-open' %>"><%= task.done ? "Terminée" : "À faire" %></span>
+        </div>
+
+        <div class="task-row-action">
+          <% unless task.done %>
+            <%= button_to "Terminer", task_path(task), class: "task-complete", method: :patch, params: { task: { done: true } } %>
+          <% end %>
+        </div>
+      </article>
+    <% end %>
+
+    <% if @tasks.empty? %>
+      <div class="task-empty">
+        <h2>Aucune tâche dans cette vue</h2>
+        <p>Essaie un autre filtre ou crée une tâche.</p>
+        <%= link_to "Nouvelle tâche", new_task_path, class: "task-create" %>
+      </div>
+    <% end %>
+  </section>
+</main>

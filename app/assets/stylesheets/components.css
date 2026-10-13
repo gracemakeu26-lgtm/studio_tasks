@@ -1,17 +1,17 @@
 :root {
-  --bg: #f4f7fb;
+  --bg: #f3f6f3;
   --panel: #ffffff;
-  --panel-alt: #eaf2ff;
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --success: #10b981;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #dbe3f0;
-  --shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
-  --violet: #8b5cf6;
-  --violet-dark: #7c3aed;
-  --danger: #dc2626;
+  --panel-alt: #e8efea;
+  --primary: #17735f;
+  --primary-dark: #105746;
+  --success: #267a59;
+  --text: #202b28;
+  --muted: #687570;
+  --border: #d8e1db;
+  --shadow: 0 12px 32px rgba(28, 45, 38, 0.08);
+  --violet: #52665e;
+  --violet-dark: #40534b;
+  --danger: #b64f3d;
 }
 
 * {
@@ -21,20 +21,17 @@
 }
 
 body {
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(37, 99, 235, 0.08), transparent 35%),
-    var(--bg);
+  font-family: "Avenir Next", Avenir, "Trebuchet MS", sans-serif;
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
 }
 
 h1 {
-  text-align: center;
   margin: 24px 0 20px;
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1.15;
-  letter-spacing: -0.04em;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--text);
 }
 

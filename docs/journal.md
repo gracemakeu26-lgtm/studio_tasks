@@ -304,3 +304,87 @@ Lorsqu'un client se connecte, le serveur crée un identifiant unique et aléatoi
 - Étant donné le cookie modifié à la main, quand je recharge, alors  la page se recharge et me redirige instantanément vers l'écran de connexion. Un nouveau cookie de session vierge remplace celui qui a été modifié. Parce que le serveur a ajouté une signature au cookie pour garantir son authenticité.
 
 - Étant donné un button_to « Se déconnecter » (session_path, method: :delete) ajouté au layout, quand je clique, alors je reviens à l'écran de connexion(redirection -> connexion -> accès -> deconnexion -> redirection)
+
+## ## Section du 13/10/2026
+
+
+### Note de lecture 
+
+- **Foreign key :** Clé étrangère, la colonne qui contient l'id d'une autre table
+- **has_many / belongs_to :** association un-à-plusieurs qui donne les méthodes de naviguation dans les deux sens (awa.tasks et task.user)
+- **Ce que add_reference crée :** la colonne user_id , un index et une contrainte de clé étrangère en base 
+- **belongs_to obligatoire par défaut depuis Rails 5 :** Pour renforcer l'intégrité des données au niveau de l'application et éviter les enregistrements "orphelins" (une tâche doit avoir un responsable)
+- **dependent: :nullify vs :destroy :** nullify permet de supprimer un utilisateur sans supprimer ses tâches alors que destroy permet de supprimer un utilisateur et ses tâches
+- **Un scope :** est une requête réutilisable déclaré dans le modéle (une requête qui revient partout)
+- **Relire le code** est une règle qui s'applique à la migration que je vais créer
+
+- Dans la migration add_user_to_tasks.rb, j'ai changé null: false à nul: true parce que on veux les tâches non assignées
+- Dans schema.rb on voit la colone user_id `(t.integer "user_id")`, l'index `(t.index ["user_id"], name: "index_tasks_on_user_id")` et la foreign key `( add_foreign_key "tasks", "users")` après la migration
+- Les tâches existantes en console : 
+``` ruby
+id: 181,
+ title: "Commander le gel",
+ description: nil,
+ done: false,
+ due_on: "2026-10-11",
+ priority: 2,
+ created_at: "2026-10-12 11:30:28.838400000 +0000",
+ updated_at: "2026-10-12 11:30:28.838400000 +0000",
+ user_id: nil
+ ```
+
+- **has_many :tasks, dependent: :nullify** Parce que les tâches survivent après le depart de l'employé
+- **belongs_to :user, optional: true** Parce que la réceptionniste assigne les tâches à la volée donc les tâches « à prendre » doivent exister
+
+En console 
+``` ruby
+ - user.tasks
+  Task Load (0.4ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."user_id" = 1 /* loading for pp */ LIMIT 11 /*application='StudioTasks'*/
+ => [] 
+ - task.user
+ => nil 
+ - user.tasks.where(done: false).order(:due_on)
+  Task Load (0.4ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."user_id" = 1 AND "tasks"."done" = FALSE /* loading for pp */ ORDER BY "tasks"."due_on" ASC LIMIT 11 /*application='StudioTasks'*/
+ => [] 
+ - user.tasks.create(title: "Vérifier la caisse")
+  TRANSACTION (0.3ms)  BEGIN immediate TRANSACTION /*application='StudioTasks'*/
+  Task Create (1.9ms)  INSERT INTO "tasks" ("title", "description", "done", "due_on", "priority", "created_at", "updated_at", "user_id") VALUES ('Vérifier la caisse', NULL, FALSE, NULL, 1, '2026-10-13 15:03:38.950742', '2026-10-13 15:03:38.950742', 1) RETURNING "id" /*application='StudioTasks'*/
+  TRANSACTION (66.7ms)  COMMIT TRANSACTION /*application='StudioTasks'*/
+ => 
+#<Task:0x0000760e1fcbe398
+ id: 191,
+ title: "Vérifier la caisse",
+ description: nil,
+ done: false,
+ due_on: nil,
+ priority: 1,
+ created_at: "2026-10-13 15:03:38.950742000 +0000",
+ updated_at: "2026-10-13 15:03:38.950742000 +0000",
+ user_id: 1> 
+ ```
+- Quand j'appelle task.user sur une tache non assignée ça rend nil
+- task.user.name exploserait parce qu'on tente d'appelé la methode name sur nil ça ressemble au bug javascipt qui appellait la méthode parsefloat sur undefined
+
+Les scopes 
+
+- 3.4.10 :024 > Task.overdue.count
+  Task Count (2.4ms)  SELECT COUNT(*) FROM "tasks" WHERE "tasks"."done" = FALSE AND (due_on < '2026-10-13') /*application='StudioTasks'*/
+ => 4 
+- 3.4.10 :007 > Task.where("due_on > ?", Date.today).count
+  Task Count (0.4ms)  SELECT COUNT(*) FROM "tasks" WHERE (due_on > '2026-10-13') /*application='StudioTasks'*/
+ => 3 
+- 3.4.10 :001 > Task.open_tasks.count
+  Task Count (0.3ms)  SELECT COUNT(*) FROM "tasks" WHERE "tasks"."done" = FALSE /*application='StudioTasks'*/
+ => 6 
+- 3.4.10 :006 > Task.where(done: true).count
+  Task Count (0.3ms)  SELECT COUNT(*) FROM "tasks" WHERE "tasks"."done" = TRUE /*application='StudioTasks'*/
+ => 5 
+- 3.4.10 :004 > Task.unassigned.count
+  Task Count (0.5ms)  SELECT COUNT(*) FROM "tasks" WHERE "tasks"."user_id" IS NULL /*application='StudioTasks'*/
+ => 10 
+- 3.4.10 :009 > Task.where(user_id: 1).count
+  Task Count (0.3ms)  SELECT COUNT(*) FROM "tasks" WHERE "tasks"."user_id" = 1 /*application='StudioTasks'*/
+ => 1 
+ - même règle que les deux chemins d'un formulaire — s'applique aussi aux scopes dans mon projet
+
+- db:reset reinitialise la base de données elle supprime d'abord ce qui était là et recrée la base 

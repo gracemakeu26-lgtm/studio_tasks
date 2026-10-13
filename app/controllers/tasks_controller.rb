@@ -3,7 +3,13 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.order(done: :asc, due_on: :asc, priority: :desc)
+    tasks = case params[:filter]
+    when "open_tasks" then Task.open_tasks
+    when "overdue" then Task.overdue
+    when "unassigned" then Task.unassigned
+    else Task.all
+    end
+    @tasks = tasks.includes(:user).order(done: :asc, due_on: :asc, priority: :desc)
   end
 
   def show

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_111838) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_142418) do
   create_table "books", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -35,6 +35,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_111838) do
     t.integer "priority", default: 1
     t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,4 +50,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_111838) do
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "tasks", "users"
 end
