@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="navbar_logo">
+    <%= link_to "Studio Tasks", root_path %>
+  </div>
+
+  <% if Current.user %>
+    <div class="navbar_user">
+      <p>Connecté : <%= Current.user.name %></p>
+      <p>Rôle : <%= role_label(Current.user) %></p>
+    </div>
+
+    <%= button_to "Se déconnecter",
+          session_path,
+          method: :delete,
+          class: "logout-button" %>
+  <% end %>
+</nav>

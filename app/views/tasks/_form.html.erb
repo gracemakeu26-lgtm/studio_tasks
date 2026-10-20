@@ -15,6 +15,11 @@
   </div>
 
   <div>
+    <%= form.label :user_id, "Responsable" %>
+    <%= form.collection_select :user_id, User.order(:name), :id, :name, { include_blank: "— Non assignée —" } %>
+  </div>
+
+  <div>
     <%= form.label :done, "Terminée" %>
     <%= form.check_box :done %>
   </div>

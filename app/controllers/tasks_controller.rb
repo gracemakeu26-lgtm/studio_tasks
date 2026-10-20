@@ -2,15 +2,24 @@ class TasksController < ApplicationController
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-  def index
-    tasks = case params[:filter]
-    when "open_tasks" then Task.open_tasks
-    when "overdue" then Task.overdue
-    when "unassigned" then Task.unassigned
-    else Task.all
-    end
-    @tasks = tasks.includes(:user).order(done: :asc, due_on: :asc, priority: :desc)
+ def index
+  @tasks = Task.includes(:user)
+
+  case params[:filter]
+  when "open_tasks"
+    @tasks = @tasks.where(done: false)
+  when "overdue"
+    @tasks = @tasks.where(done: false).where("due_on < ?", Date.current)
+  when "unassigned"
+    @tasks = @tasks.where(user_id: nil)
   end
+
+  if params[:mine] == "1"
+      @tasks = Current.user ? @tasks.where(user: Current.user) : @tasks.none
+    end
+
+    @tasks = @tasks.order(done: :asc, due_on: :asc, priority: :desc)
+end
 
   def show
   end
@@ -53,6 +62,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :done, :due_on, :priority)
+    params.require(:task).permit(:title, :description, :done, :due_on, :priority, :user_id)
   end
 end

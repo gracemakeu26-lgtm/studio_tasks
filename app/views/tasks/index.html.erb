@@ -12,8 +12,9 @@
     <%= link_to "En cours", tasks_path(filter: "open_tasks"), class: (params[:filter] == "open_tasks" ? "task-filter is-active" : "task-filter") %>
     <%= link_to "En retard", tasks_path(filter: "overdue"), class: (params[:filter] == "overdue" ? "task-filter is-active" : "task-filter") %>
     <%= link_to "Non assignées", tasks_path(filter: "unassigned"), class: (params[:filter] == "unassigned" ? "task-filter is-active" : "task-filter") %>
+    <%= link_to "Mes tâches", tasks_path(mine: 1), class: (params[:mine] == "1" ? "task-filter is-active" : "task-filter") %>
   </nav>
-
+  
   <section class="task-list" aria-label="Liste des tâches">
     <div class="task-list-heading" aria-hidden="true">
       <span>Tâche</span>
@@ -60,9 +61,15 @@
 
     <% if @tasks.empty? %>
       <div class="task-empty">
-        <h2>Aucune tâche dans cette vue</h2>
-        <p>Essaie un autre filtre ou crée une tâche.</p>
-        <%= link_to "Nouvelle tâche", new_task_path, class: "task-create" %>
+        <% if params[:mine] == "1" %>
+          <h2>Aucune tâche ne t'est assignée</h2>
+          <p>Prends une pause ou demande à ton équipe si du travail est disponible.</p>
+        <% else %>
+          <h2>Aucune tâche dans cette vue</h2>
+          <p>Essaie un autre filtre ou crée une tâche.</p>
+        <% end %>
+    
+        <%#= link_to "Nouvelle tâche", new_task_path, class: "task-create" %>
       </div>
     <% end %>
   </section>

@@ -388,3 +388,34 @@ Les scopes
  - même règle que les deux chemins d'un formulaire — s'applique aussi aux scopes dans mon projet
 
 - db:reset reinitialise la base de données elle supprime d'abord ce qui était là et recrée la base 
+
+## ## Section du 19/10/2026
+
+
+### Note de lecture 
+
+- **`current.user représente` :** un utilisateur actuellement connecté pour une requête active 
+- Il est rempli dans le contoller et la view
+- **`collection_select` :** est un selecteur construit depuis une collection d'objet 
+- **Le safe navigation operator & :** permet d'apeller la méthode si l'objet existe sinon rend nil sans exploser. Il répond au bug js `Cannot read properties of undefined `
+- **Le helper comme frontière code anglais / écran français :** permet d'afficher les rôles en français sur la plateforme et en anglais dans le code 
+
+
+### Naviguation pour chaque rôle
+
+#### Gérante
+![Navigation pour la gérante](/docs/captures/manager.png)
+
+#### Réceptionniste
+![Navigation pour la réceptionniste](/docs/captures/receptionist.png)
+
+#### Esthéticienne
+![Navigation pour la esthéticienne](/docs/captures/esthetician.png)
+
+- Quand je retire user_id de permit et  que je crée une tâche il apparait : `Unpermitted parameter: :user_id. Context: { controller: TasksController, action: create, request: #<ActionDispatch::Request:0x0000769835fde398>, params: {"authenticity_token" => "[FILTERED]", "task" => {"title" => "Vérifier le stock de gel ", "due_on" => "2026-10-20", "priority" => "2", "user_id" => "5", "done" => "0", "description" => ""}, "commit" => "Enregistrer la tâche", "controller" => "tasks", "action" => "create"} }` dans les logs
+- Étant donné la liste et le détail, quand une tâche est non assignée, alors l'écran montre « Non assignée ».
+- Étant donné une tâche assignée à l'esthéticienne et une non assignée, quand je les crée depuis le navigateur, alors les deux s'affichent correctement.
+- Etat vide de l'esthéticienne
+![Etat vide de l'esthéticienne](/docs/captures/etat-vide-estheticienne.png)
+- Etat vide de toute les tâches
+![Etat vide de toute les tâches](/docs/captures/etat-vide-taches.png)

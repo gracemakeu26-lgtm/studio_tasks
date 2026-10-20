@@ -24,6 +24,8 @@
   </head>
 
   <body>
+
+    <%= render "layouts/navbar" %>
     <%= yield %>
       <% if notice %><p class="notice flash--notice"><%= notice %></p><% end %>
       <% if alert %><p class="alert flash--alert"><%= alert %></p><% end %>
@@ -38,7 +40,6 @@
             <% end %>
           </ul>
         </div>
-        <%= button_to "Se déconnecter", session_path, method: :delete, class: "buttonLink danger" %>
     <% end %>
   </body>
 </html>

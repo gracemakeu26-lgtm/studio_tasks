@@ -166,4 +166,12 @@ Après l'ajout de Task.order(... priority: :desc) dans le controller, quand je r
 - Le message d'échec pour le mauvais mot de passe et l'email incorrect c'est pour que si un attaquant tente de se connecter qu'il ne sache pas réellement où il a fait l'erreur lors de la connexion
 - Ce qui normalise l'email c'est app/models/user.rb ligne 5
 
+## ## Section du 19/10/2026
+
+### Test du workflow de l'esthéticienne 
+
+- connexion → mes tâches → cocher Fait : 30s
+- Un constat est que l'esthéticienne peut modifier une tâche c'est un manque structurel (autorisation n'existe pas encore)
+- Un constat est que l'esthéticienne peut supprimer une tâche c'est un manque structurel (autorisation n'existe pas encore)
+- L'atterrissage après connexion, elle arrive sur TOUTES les tâches au lieu des siennes, c'est un manque structurel (c'est de l'autorisation d'affichage).
 

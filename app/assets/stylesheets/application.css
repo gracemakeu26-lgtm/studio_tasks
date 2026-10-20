@@ -6,4 +6,74 @@
  *= require show
  */
 
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: #267a59;
+  color: #f9fafb;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+}
+
+.navbar .navbar_logo a {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navbar .navbar_user {
+    display: flex;
+    flex-direction: row;
+    gap: 7rem;
+    align-items: center;
+}
+.navbar .nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+.navbar .navbar_user p {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: #fff;
+}
+
+.logout-button {
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: #dc2626;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #b91c1c;
+}
+
+.logout-button:focus-visible,
+.navbar .logo a:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .navbar .nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+}
 
