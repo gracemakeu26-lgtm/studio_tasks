@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
 
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_manager, only: [:destroy]
+  before_action :require_edit_permission, only: [:edit, :update]
 
  def index
   @tasks = Task.includes(:user)
@@ -62,6 +64,18 @@ end
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :done, :due_on, :priority, :user_id)
+    if Current.user.manager?
+      params.require(:task).permit(:title, :description, :done, :due_on, :priority, :user_id)
+    else
+      params.require(:task).permit(:title, :description, :done, :due_on, :priority)
+    end
+  end
+
+  def require_manager
+    redirect_to tasks_path, alert: "Action réservée à la gérante." unless Current.user.manager? #matrix : delete task : mnager only  
+  end
+  def require_edit_permission
+    allowed = Current.user.manager? || @task.user == Current.user
+    redirect_to tasks_path, alert: "Tu ne peux modifier que tes tâches." unless allowed #matrix : modify / maek Done : manager all, esthetician his 
   end
 end

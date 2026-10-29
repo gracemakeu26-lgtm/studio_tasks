@@ -31,8 +31,14 @@
   <footer class="task-detail-actions">
     <%= link_to "Retour à la liste", tasks_path, class: "task-back" %>
     <div>
-      <%= link_to "Modifier", edit_task_path(@task), class: "task-edit" %>
-      <%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" }, class: "task-delete" %>
+      <% if Current.user.manager? %>
+        <%= link_to "Modifier", edit_task_path(@task), class: "task-edit" %>
+        <%= button_to "Supprimer", @task, method: :delete, data: { turbo_confirm: "Supprimer cette tâche ?" }, class: "task-delete" %>
+      <% else %>
+        <% if Current.user.esthetician? && @task.user == Current.user %>
+          <%= link_to "Modifier", edit_task_path(@task), class: "task-edit" %>
+        <% end %>
+      <% end %>
     </div>
   </footer>
 </main>

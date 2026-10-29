@@ -419,3 +419,20 @@ Les scopes
 ![Etat vide de l'esthéticienne](/docs/captures/etat-vide-estheticienne.png)
 - Etat vide de toute les tâches
 ![Etat vide de toute les tâches](/docs/captures/etat-vide-taches.png)
+
+## ## Section du 29/10/2026
+
+
+### Note de lecture 
+
+- **Les deux portes :** ce sont l'`authentification` et `l'autorisation`. L'authentification permet à utilisateur d'accéder au site alors que l'autorisation permet de décider qui va faire quoi 
+- **La vue cache le serveur interdit :** La vue cache les bouttons et le serveur bloque l'action 
+- **Le forced browsing (accéder par l'URL directe à ce qu'on ne m'offre pas) :** Consiste à deviner une URL pour accéder à une action que ne m'offre pas 
+- **Pourquoi l'ordre des before_action compte :** Parce que les callbacks s'exécute dans l'ordre de déclaration
+
+- Les trois comptes ne voient que leurs actions possible : voir all tâches : tous · créer : tous · modifier / cocher Fait : gérante tout, esthéticienne les siennes · supprimer : gérante · assigner : gérante
+- Lorsqu'une esthéticienne forge un user_id dans l'inspecteur la tâche est créée donc dans ce cas on aura un permit conditionnel parce que ce n'est que la gérante qui assigne les tâches et les autres utilisateurs non 
+
+- **`after_authentication_url` :** Dit sur quelle url l'utilisateur va arriver après l'authentification
+
+- Quand je me connecte en temps que esthéticienne, j'arrive sur "`Mes tâches`" et en quand je me connecte avec les deux autres rôles j'arrive sur "`Toutes les tâches`".

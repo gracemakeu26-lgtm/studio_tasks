@@ -175,3 +175,12 @@ Après l'ajout de Task.order(... priority: :desc) dans le controller, quand je r
 - Un constat est que l'esthéticienne peut supprimer une tâche c'est un manque structurel (autorisation n'existe pas encore)
 - L'atterrissage après connexion, elle arrive sur TOUTES les tâches au lieu des siennes, c'est un manque structurel (c'est de l'autorisation d'affichage).
 
+## ## Section du 29/10/2026
+
+| URL               | Refus               | Message               | Redirection               |
+|-----              |-------              |---------              |-------------              |
+|esthéticienne : /tasks/34/edit    | Oui | Tu ne peux modifier que tes tâches.| Toutes les tâches|
+|suppression forgée via button_to recréé dans les DevTools | OUi | Action réservée à la gérante.| Toutes les tâches|
+|?mine=1 trafiqué | Oui | | Toutes les tâches|
+|réceptionniste : /tasks/37/edit | Oui | Tu ne peux modifier que tes tâches.| Toutes les tâches|
+|déconnectée : toutes les URLs | Oui|   | Page de connection |

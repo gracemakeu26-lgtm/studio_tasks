@@ -6,4 +6,7 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   validates :role, inclusion: { in: %w[manager esthetician receptionist] }
   validates :name, presence: true
+
+  def manager? = role == "manager"
+  def esthetician? = role == "esthetician"
 end

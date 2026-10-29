@@ -15,8 +15,10 @@
   </div>
 
   <div>
-    <%= form.label :user_id, "Responsable" %>
-    <%= form.collection_select :user_id, User.order(:name), :id, :name, { include_blank: "— Non assignée —" } %>
+    <% if Current.user.manager? %>
+      <%= form.label :user_id, "Responsable" %>
+      <%= form.collection_select :user_id, User.order(:name), :id, :name, { include_blank: "— Non assignée —" } %>
+    <% end %>
   </div>
 
   <div>

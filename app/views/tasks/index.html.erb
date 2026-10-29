@@ -9,7 +9,6 @@
 
   <nav class="task-filters" aria-label="Filtrer les tâches">
     <%= link_to "Toutes", tasks_path, class: (params[:filter].blank? ? "task-filter is-active" : "task-filter") %>
-    <%= link_to "En cours", tasks_path(filter: "open_tasks"), class: (params[:filter] == "open_tasks" ? "task-filter is-active" : "task-filter") %>
     <%= link_to "En retard", tasks_path(filter: "overdue"), class: (params[:filter] == "overdue" ? "task-filter is-active" : "task-filter") %>
     <%= link_to "Non assignées", tasks_path(filter: "unassigned"), class: (params[:filter] == "unassigned" ? "task-filter is-active" : "task-filter") %>
     <%= link_to "Mes tâches", tasks_path(mine: 1), class: (params[:mine] == "1" ? "task-filter is-active" : "task-filter") %>
