@@ -184,3 +184,57 @@ Après l'ajout de Task.order(... priority: :desc) dans le controller, quand je r
 |?mine=1 trafiqué | Oui | | Toutes les tâches|
 |réceptionniste : /tasks/37/edit | Oui | Tu ne peux modifier que tes tâches.| Toutes les tâches|
 |déconnectée : toutes les URLs | Oui|   | Page de connection |
+
+
+## ## Section du 30/10/2026
+
+
+### Workflows croisés
+- La gérante crée une tâche et l'assigne à l'esthéticienne en 24s
+- L'esthéticenne la trouve et la coche en 11s
+- La gérante recharge et la constate en 9s
+
+### Campagne N°3
+
+#### Chapitre Gerante
+
+- Gérante : crée une tâche -> assigne -> modifie -> supprime . Tâche créée, modifiée et supprimée . Tâche créée, modifiée et supprimée . OK
+- Gérante : Se connecte -> voit toutes les tâches .  Connecté : toutes les tâches . Connecté : toutes les tâches . OK
+- Gérante : cocher toutes les tâches . Tache modifiée . Tâche modifiée . OK
+
+#### Chapitre Esthéticienne
+
+- Esthéticienne : crée une tâche -> modifie les siennes -> coche les siennes . Tâche créée, modifiée et cochée . Tâche créée, modifiée et supprimée . OK
+- Esthéticienne : Se connecte -> voit ses tâches .  Connecté : toutes ses tâches . Connecté : toutes ses tâches . OK
+- Esthéticienne : Modifier un tâche qui n'est pas la sienne . "Tu ne peut modifier que tes tâches" . Tu ne peux modifier que tes tâches . OK 
+
+#### Chapitre Receptionniste
+
+- Receptionniste : crée une tâche -> voit les détails -> Coche les siennes . Tâche créée, et cochée . Tâche créée, et cochée . OK
+- Receptionniste : Se connecte -> voit toutes les tâches . Connecté : toutes les tâches . Connecté : toutes les tâches . OK 
+- Receptionniste : cocher une tâche qui n'est pas la sienne . "Tu ne peut modifier que tes tâches" . Tu ne peux modifier que tes tâches . OK 
+
+#### Chapitre sécurité
+
+- esthéticienne : /tasks/X/edit d'une tâche d'une collègue . Refus . Refus . OK
+- suppression forgée (recrée le button_to delete dans les DevTools) . refus . refus . OK
+- ?mine=1 trafiqué . retour à la liste des tâches . retour à la liste des tâches . OK
+- Connectée en réceptionniste : /tasks/X/edit de n'importe quoi . refus . refus . OK
+- Déconnectée : toutes les URLs . retour à la page de connection . retour à la page de connection . OK
+
+#### Chapitre limites
+
+- double session du même compte . OK
+- déconnexion dans une fenêtre puis action dans l'autre . Action se voit après la connection dans la fenêtre déconnecté . Action se voit après la connection dans la fenêtre déconnecté . OK
+- cookie supprimé en pleine navigation . Déconnexion . DEconnecxion . OK 
+- retour arrière après déconnexion . Parge de connexion . Page de connexion . OK
+
+#### Synthèse
+
+Cette campagne N°3 permet de vise à tester chaque utilisateur avec son workflow, la sécurité et les limites. Chaque utilisateur à 3 cas, la sécurité à 5 cas et les limtites ont 4 cas pour un total de 18 cas. Le cas du chapitre limite qui m'a surprise est le retour en arrière après la déconnexion, ça consiste  à se deconnecter et cliquer sur le bouton revenir en arrière du navigateur. Ça ramère toujour sur la page de connection.
+
+### Critiquer la liste des tâches 
+
+- La gérante ne voit pas qui est surchargée car quand elle arrive elle voit les tâches en retard, les priorité, et les responsables mais elle ne connait pas qui est surchargée. Je propose que quand elle se connecte elle voit aussi le nombre total des tâches et aussi le nombre de tâche par utilisateur. Son cout estimé est grosse et c'est un défaut d'écran.
+- Trop d'information pour la receptionniste (la colonne responsable) elle peut juste cliquer sur mes tâche pour voir ses tâches. Je propose que elle voit toutes les tâches mais pas les responsables. Sonn cout est estimé est petite et c'est un défaut d'écran.
+- Puisque l'estheticienne et la receptionniste ne peuvent cocher que le tâche, ce n'est pas nécessaire d'avoir un bouton terminé sur les tâches qui ne leur appartiennent pas, je propose de retirer ce bouton sur ces tâches. cout moyen , défaut d'écran

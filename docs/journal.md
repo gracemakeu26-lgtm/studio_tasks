@@ -436,3 +436,13 @@ Les scopes
 - **`after_authentication_url` :** Dit sur quelle url l'utilisateur va arriver après l'authentification
 
 - Quand je me connecte en temps que esthéticienne, j'arrive sur "`Mes tâches`" et en quand je me connecte avec les deux autres rôles j'arrive sur "`Toutes les tâches`".
+
+## ## Section du 30/10/2026
+
+
+### Note de lecture 
+
+- **Pourquoi la fenêtre privée donne une session indépendante :** Parce qu'il n'y a pas de cookies partagé
+- **Ce qu'est un workflow croisé :** Ce que fait l'une l'autre doit le voir après rechargement
+- **En quoi la campagne n°3 diffère de la n°2 :** La campagne n°2 testait des formulaires. La n°3 teste des workflows de rôles entiers, de bout en bout, à travers les comptes : « la gérante crée et assigne → l'esthéticienne se connecte, voit, coche → la gérante
+constate ». 
