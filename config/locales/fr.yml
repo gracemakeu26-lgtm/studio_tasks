@@ -25,6 +25,8 @@ fr:
     models:
       task: "Tâche"
       tasks: "Tâches"
+      user: "Utilisateur"
+      users: "Utilisateurs"
     attributes:
       task:
         title: "Titre"
@@ -32,6 +34,15 @@ fr:
         priority: "Priorité"
         created_at: "Créée le"
         updated_at: "Modifiée le"
+      user:
+        created_at: "Créé le"
+        updated_at: "Modifié le"
+        email_address: "Adresse e-mail"
+        name: "Nom"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation du mot de passe"
+        password_digest: "Mot de passe"
+        role: "Responsabilité"
     errors:
       messages:
         blank: "doit être rempli(e)"
@@ -40,6 +51,16 @@ fr:
           other: "est trop long (pas plus de %{count} caractères)"
         record_invalid: "La validation a échoué : %{errors}"
       models:
+        user:
+          attributes:
+            name:
+              blank: "est obligatoire"
+            password:
+              blank: "doit être renseigné"
+            password_confirmation:
+              confirmation: "ne correspond pas au mot de passe"
+            role:
+              inclusion: "n'est pas une responsabilité valide"
         task:
           attributes:
             title:
@@ -82,6 +103,14 @@ fr:
       back: "Retour"
 
   flash:
+    authentication:
+      rate_limited: "Veuillez patienter quelques minutes avant de réessayer."
+      invalid_credentials: "Vérifiez votre adresse e-mail ou votre mot de passe."
+    passwords:
+      reset_instructions: "Si un compte correspond à cette adresse, des instructions de réinitialisation ont été envoyées."
+      reset_success: "Votre mot de passe a été réinitialisé."
+      passwords_mismatch: "Les mots de passe ne correspondent pas."
+      invalid_link: "Le lien de réinitialisation est invalide ou a expiré."
     tasks:
       create:
         notice: "La tâche a été créée avec succès."
@@ -91,3 +120,8 @@ fr:
         notice: "La tâche a été supprimée avec succès."
       failure:
         alert: "La tâche n'a pas pu être enregistrée."
+
+  mailers:
+    passwords:
+      reset:
+        subject: "Réinitialisation de votre mot de passe"

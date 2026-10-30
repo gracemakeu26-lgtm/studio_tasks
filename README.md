@@ -10,6 +10,28 @@ Ce projet est une petite application de gestion opérationnelle destinée à fac
 - l’esthéticienne peut consulter les tâches à réaliser et les marquer comme terminées ;
 - la réceptionniste peut ajouter rapidement des tâches en cours de journée.
 
+## Comptes de développement et droits
+
+Les trois comptes ci-dessous sont créés par `bin/rails db:seed`. Ils utilisent tous le mot de passe de démonstration `password` ; ne réutilisez pas ces identifiants en production.
+
+| Nom | Adresse e-mail | Rôle | Mot de passe |
+| --- | --- | --- | --- |
+| Camille Laurent | `manager@studio-lumiere.fr` | Gérante (`manager`) | `password` |
+| Nora Benali | `esthetician@studio-lumiere.fr` | Esthéticienne (`esthetician`) | `password` |
+| Lucas Moreau | `receptionist@studio-lumiere.fr` | Réceptionniste (`receptionist`) | `password` |
+
+| Action | Gérante | Esthéticienne | Réceptionniste |
+| --- | --- | --- | --- |
+| Consulter toutes les tâches et leurs détails | Oui | Oui | Oui |
+| Créer une tâche | Oui | Oui | Oui |
+| Attribuer une tâche à un membre | Oui | Non, créée non assignée | Non, créée non assignée |
+| Modifier une tâche | Toutes | Ses tâches | Ses tâches via l’URL, sans lien de modification affiché |
+| Marquer une tâche comme terminée | Toutes | Ses tâches | Ses tâches |
+| Supprimer une tâche | Oui | Non | Non |
+| Ouvrir directement « Mes tâches » après connexion | Non | Oui | Non |
+
+Les autres rôles arrivent sur la liste générale après connexion. Les tâches ne sont pas filtrées par utilisateur par défaut. La création de comptes n’est pas disponible dans l’interface : un compte doit être créé par une personne ayant accès à la base (ou ajouté aux seeds en développement). Aucun rôle par défaut n’est défini ; un rôle valide doit être fourni (`manager`, `esthetician` ou `receptionist`). `db:seed` efface et recrée les sessions, tâches et comptes existants : ne l’exécutez pas sur une base à conserver.
+
 ## Fonctionnalités
 
 - Créer une nouvelle tâche avec titre, description, priorité et date d’échéance ;
@@ -189,6 +211,19 @@ Next, I would check edit and delete actions to confirm the right task is updated
 I would also test the done toggle and sorting by date and priority.  
 Then I would validate empty and populated states, including error messages and flash notices.  
 Finally, I would confirm the French locale and interface behave correctly across the main user journeys.
+
+## What breaks first if we onboard a 4th employee tomorrow?
+
+1. There is no sign-up page or user-management screen, so an existing operator must create the account directly.
+2. The development accounts come only from the seeds, and rerunning them deletes existing users, sessions, and tasks.
+3. A new user has no default role; the database requires an explicit valid role during creation.
+4. The allowed roles are hard-coded to manager, esthetician, and receptionist, so a new job title is rejected.
+5. The app has no invitation or onboarding flow to explain how the employee gets credentials.
+6. Every signed-in employee can see the full task list unless they choose the “My tasks” filter.
+7. Only the manager can assign tasks, so a fourth employee cannot receive work through their own account.
+8. The esthetician lands on “My tasks” after login, while the other roles land on the full list.
+9. A receptionist can edit their own task through a direct URL even though the interface hides the edit link.
+10. Before onboarding, we need account provisioning, a deliberate role assignment, and a decision about first-login visibility.
 
 ## Auteur
 
