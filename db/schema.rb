@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_142418) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_130832) do
   create_table "books", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_142418) do
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["title", "description", "due_on", "priority", "done", "user_id"], name: "idx_tasks_uniqueness_group", unique: true
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

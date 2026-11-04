@@ -15,9 +15,12 @@
   </div>
 
   <div>
+    <%= form.label :user_id, "Responsable" %>
     <% if Current.user.manager? %>
-      <%= form.label :user_id, "Responsable" %>
       <%= form.collection_select :user_id, User.order(:name), :id, :name, { include_blank: "— Non assignée —" } %>
+    <% else %>
+      <%= form.collection_select :user_id, User.order(:name), :id, :name, { include_blank: "— Non assignée —", selected: Current.user&.id }, { disabled: true } %>
+      <%= form.hidden_field :user_id, value: Current.user&.id %>
     <% end %>
   </div>
 

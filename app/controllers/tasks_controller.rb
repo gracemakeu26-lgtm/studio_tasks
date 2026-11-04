@@ -75,7 +75,9 @@ end
     redirect_to tasks_path, alert: "Action réservée à la gérante." unless Current.user.manager? #matrix : delete task : mnager only  
   end
   def require_edit_permission
-    allowed = Current.user.manager? || @task.user == Current.user
-    redirect_to tasks_path, alert: "Tu ne peux modifier que tes tâches." unless allowed #matrix : modify / maek Done : manager all, esthetician his 
+    return if Current.user.manager?
+    return if Current.user.esthetician? && @task.user == Current.user
+
+    redirect_to tasks_path, alert: "Tu ne peux pas modifier cette tâche."
   end
 end
