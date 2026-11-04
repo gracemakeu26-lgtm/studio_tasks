@@ -1,15 +1,33 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  description: MyText
+gel_order:
+  title: "Commander le gel"
+  description: ""
   done: false
-  due_on: 2026-09-29
+  due_on: <%= 2.days.from_now.to_date %>
   priority: 1
+  user: Camile
 
-two:
-  title: MyString
-  description: MyText
+late_towels:
+  title: "Réapprovisionner les serviettes"
+  description: ""
   done: false
-  due_on: 2026-09-29
+  due_on: <%= 3.days.ago.to_date %>
+  priority: 2
+  user: Laurent
+
+unscheduled_appointment:
+  title: "Rendez-vous non programmé"
+  description: ""
+  done: true
+  due_on: <%= 1.week.ago.to_date %>
   priority: 1
+  user: Nora
+
+unassigned_task:
+  title: "Tâche non assignée"
+  description: ""
+  done: false
+  due_on: <%= 1.week.from_now.to_date %>
+  priority: 0
+  user: 

@@ -1,7 +1,102 @@
 require "test_helper"
 
 class TaskTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "validates presence of title" do
+   task = Task.new(title: nil)
+   assert_not task.valid?
+   assert_includes task.errors[:title], "est obligatoire"
+  end
+  test "too long title" do
+   task = Task.new(title: "a" * 256)
+   assert_not task.valid?
+   assert_includes task.errors[:title], "ne doit pas dépasser 120 caractères"
+  end
+  test "valid title" do
+   task = Task.new(title: "a" * 120)
+   assert task.valid?
+  end
+  test "invalid priority" do
+   task = Task.new(priority: 9)
+   assert_not task.valid?
+   assert_includes task.errors[:priority], "n'est pas valide"
+  end
+  test "valid priority" do
+   task = Task.new(title: "Commander le gel", priority: 1)
+   assert task.valid?
+  end
+  test "too long description" do
+   task = Task.new(description: "a" * 501)
+   assert_not task.valid?
+   assert_includes task.errors[:description], "est trop long (pas plus de 500 caractères)"
+  end
+  test "valid description" do
+   task = Task.new(title: "Commander le gel", description: "a" * 500)
+   assert task.valid?
+  end
+  test "empty fields" do
+   task = Task.new(title: "Commander le gel", due_on: nil, description: nil)
+   assert task.valid?
+  end
+  test "valid fields" do
+   task = Task.new(title: "Commander le gel", due_on: Date.today, description: "a" * 500)
+   assert task.valid?
+  end
+  test "overdue scope" do
+   task1 = tasks(:late_towels)
+   task2 = tasks(:gel_order)
+
+   overdue_tasks = Task.overdue
+
+   assert_includes overdue_tasks, task1
+   assert_not_includes overdue_tasks, task2
+  end
+  test "open_tasks scope" do
+   task1 = tasks(:gel_order)
+   task2 = tasks(:unscheduled_appointment)
+
+   open_tasks = Task.open_tasks
+
+   assert_includes open_tasks, task1
+   assert_not_includes open_tasks, task2
+  end
+  test "unassigned scope" do
+    unassigned_task = tasks(:unassigned_task)
+
+    assert_includes Task.unassigned, unassigned_task
+    assert_not_includes Task.unassigned, tasks(:gel_order)
+  end
+
+  test "belongs to its assigned user" do
+    assert_equal users(:Camile), tasks(:gel_order).user
+  end
+
+  test "user has only its assigned tasks" do
+    assert_equal [ tasks(:gel_order) ], users(:Camile).tasks.to_a
+    assert_not_includes users(:Nora).tasks, tasks(:gel_order)
+  end
+
+  test "allows tasks without an assigned user" do
+    unassigned_task = tasks(:unassigned_task)
+
+    assert_nil unassigned_task.user
+    assert_includes Task.unassigned, unassigned_task
+  end
+
+  test "nullifies task assignment when its user is destroyed" do
+    task = tasks(:gel_order)
+
+    users(:Camile).destroy!
+
+    assert_nil task.reload.user_id
+  end
+
+  test "overdue scope excludes completed tasks and composes with user association" do
+    overdue_tasks = Task.overdue
+
+    assert_includes overdue_tasks, tasks(:late_towels)
+    assert_not_includes overdue_tasks, tasks(:gel_order)
+    assert_not_includes overdue_tasks, tasks(:unscheduled_appointment)
+    assert_equal [ tasks(:late_towels) ], users(:Laurent).tasks.overdue.to_a
+    assert_empty users(:Nora).tasks.overdue
+  end
 end
