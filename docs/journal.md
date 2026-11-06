@@ -446,3 +446,8 @@ Les scopes
 - **Ce qu'est un workflow croisé :** Ce que fait l'une l'autre doit le voir après rechargement
 - **En quoi la campagne n°3 diffère de la n°2 :** La campagne n°2 testait des formulaires. La n°3 teste des workflows de rôles entiers, de bout en bout, à travers les comptes : « la gérante crée et assigne → l'esthéticienne se connecte, voit, coche → la gérante
 constate ». 
+
+## ## Section du 06/11/2026
+
+Pour bin/rails test j'ai 41 tests, 180 assertion pour un total de 1.726113s.
+Pour la campagne n°3 manuelle j'ai 18 cas pour un total de 45min.
