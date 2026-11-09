@@ -28,6 +28,6 @@ unassigned_task:
   title: "Tâche non assignée"
   description: ""
   done: false
-  due_on: <%= 1.week.from_now.to_date %>
+  due_on: <%= Date.today %>
   priority: 0
   user: 

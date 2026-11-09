@@ -451,3 +451,22 @@ constate ».
 
 Pour bin/rails test j'ai 41 tests, 180 assertion pour un total de 1.726113s.
 Pour la campagne n°3 manuelle j'ai 18 cas pour un total de 45min.
+
+## ## Section du 09/11/2026
+
+## ### Une requête au journal
+
+#### Soumission valide
+
+|verbe+URL| params| INSERT SQL| redirection| statut| durée|
+|---------|-------|-----------|------------|-------|------|
+|GET "/tasks/new"| | | | 200| 20ms|
+POST "/tasks"| authenticity_token" => "[FILTERED]", "task" => {"title" => "Commander les colorations", "due_on" => "2026-11-09", "priority" => "0", "user_id" => "9", "done" => "0", "description" => ""}, "commit" => "Enregistrer la tâche"}|INSERT INTO "tasks" ("created_at", "description", "done", "due_on", "priority", "title", "updated_at", "user_id") VALUES ('2026-11-09 12:30:29.994473', '', FALSE, '2026-11-09', 2, 'Commander les colorations', '2026-11-09 12:30:29.994473', 9)| http://localhost:3000/tasks| 302 | 66ms|
+| GET "/tasks"| | | | 200| 42ms|
+
+#### Soumission invalide
+
+|verbe+URL| params| INSERT SQL| redirection| statut| durée|
+|---------|-------|-----------|------------|-------|------|
+| GET "/tasks/new"| | | | 200| 29ms|
+| POST "/tasks"| {"authenticity_token" => "[FILTERED]", "task" => {"title" => "", "due_on" => "", "priority" => "1", "user_id" => "", "done" => "0", "description" => ""}, "commit" => "Enregistrer la tâche"}| | | 422| 56ms|

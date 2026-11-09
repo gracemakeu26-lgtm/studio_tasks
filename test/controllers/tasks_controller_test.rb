@@ -21,6 +21,26 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "task list shows category counts and filters tasks due today" do
+    sign_in_as(users(:Camile))
+
+    get tasks_path
+
+    assert_response :success
+    assert_select "a.task-filter[href='#{tasks_path}'] .task-filter-count", text: "4"
+    assert_select "a.task-filter[href='#{tasks_path(filter: 'overdue')}'] .task-filter-count", text: "1"
+    assert_select "a.task-filter[href='#{tasks_path(filter: 'open_tasks')}'] .task-filter-count", text: "3"
+    assert_select "a.task-filter[href='#{tasks_path(filter: 'unassigned')}'] .task-filter-count", text: "1"
+    assert_select "a.task-filter[href='#{tasks_path(mine: 1)}'] .task-filter-count", text: "1"
+    assert_select "a.task-filter[href='#{tasks_path(filter: 'due_today')}'] .task-filter-count", text: "1"
+
+    get tasks_path(filter: "due_today")
+
+    assert_response :success
+    assert_select "h2 a", text: "Tâche non assignée"
+    assert_select "h2 a", text: "Commander le gel", count: 0
+  end
+
   test "esthetician cannot delete a task" do
     sign_in_as users(:Laurent)
     assert_no_difference "Task.count" do

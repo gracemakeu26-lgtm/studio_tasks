@@ -8,12 +8,26 @@
   </header>
 
   <nav class="task-filters" aria-label="Filtrer les tâches">
-    <%= link_to "Toutes", tasks_path, class: (params[:filter].blank? ? "task-filter is-active" : "task-filter") %>
-    <%= link_to "En retard", tasks_path(filter: "overdue"), class: (params[:filter] == "overdue" ? "task-filter is-active" : "task-filter") %>
-    <%= link_to "Non assignées", tasks_path(filter: "unassigned"), class: (params[:filter] == "unassigned" ? "task-filter is-active" : "task-filter") %>
-    <%= link_to "Mes tâches", tasks_path(mine: 1), class: (params[:mine] == "1" ? "task-filter is-active" : "task-filter") %>
+    <%= link_to tasks_path, class: (params[:filter].blank? ? "task-filter is-active" : "task-filter") do %>
+      Toutes <span class="task-filter-count"><%= @task_counts[:all] %></span>
+    <% end %>
+    <%= link_to tasks_path(filter: "overdue"), class: (params[:filter] == "overdue" ? "task-filter is-active" : "task-filter") do %>
+      En retard <span class="task-filter-count"><%= @task_counts[:overdue] %></span>
+    <% end %>
+    <%= link_to tasks_path(filter: "open_tasks"), class: (params[:filter] == "open_tasks" ? "task-filter is-active" : "task-filter") do %>
+      À faire <span class="task-filter-count"><%= @task_counts[:open_tasks] %></span>
+    <% end %>
+    <%= link_to tasks_path(filter: "unassigned"), class: (params[:filter] == "unassigned" ? "task-filter is-active" : "task-filter") do %>
+      Non assignées <span class="task-filter-count"><%= @task_counts[:unassigned] %></span>
+    <% end %>
+    <%= link_to tasks_path(mine: 1), class: (params[:mine] == "1" ? "task-filter is-active" : "task-filter") do %>
+      Mes tâches <span class="task-filter-count"><%= @task_counts[:mine] %></span>
+    <% end %>
+    <%= link_to tasks_path(filter: "due_today"), class: (params[:filter] == "due_today" ? "task-filter is-active" : "task-filter") do %>
+      Tâches du jour <span class="task-filter-count"><%= @task_counts[:due_today] %></span>
+    <% end %>
   </nav>
-  
+
   <section class="task-list" aria-label="Liste des tâches">
     <div class="task-list-heading" aria-hidden="true">
       <span>Tâche</span>
@@ -67,8 +81,6 @@
           <h2>Aucune tâche dans cette vue</h2>
           <p>Essaie un autre filtre ou crée une tâche.</p>
         <% end %>
-    
-        <%#= link_to "Nouvelle tâche", new_task_path, class: "task-create" %>
       </div>
     <% end %>
   </section>

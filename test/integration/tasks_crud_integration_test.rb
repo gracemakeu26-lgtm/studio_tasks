@@ -46,6 +46,5 @@ class TasksCrudIntegrationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_not_nil flash[:alert]
-    #assert_match I18n.t("tasks.not_found", default: "Cette tâche a déjà été supprimée ou n'existe pas"), response.body
   end
 end

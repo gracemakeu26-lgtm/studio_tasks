@@ -99,4 +99,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_equal [ tasks(:late_towels) ], users(:Laurent).tasks.overdue.to_a
     assert_empty users(:Nora).tasks.overdue
   end
+
+  test "due today scope includes tasks due today and excludes completed tasks" do
+    due_today_tasks = Task.due_today
+
+    assert_includes due_today_tasks, tasks(:unassigned_task)
+    assert_not_includes due_today_tasks, tasks(:late_towels)
+    assert_not_includes due_today_tasks, tasks(:unscheduled_appointment)
+    assert_not_equal [ tasks(:unassigned_task) ], users(:Nora).tasks.due_today.to_a
+    assert_empty users(:Laurent).tasks.due_today
+  end
 end

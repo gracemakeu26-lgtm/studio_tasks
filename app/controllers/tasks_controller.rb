@@ -5,22 +5,33 @@ class TasksController < ApplicationController
   before_action :require_edit_permission, only: [:edit, :update]
 
  def index
+  @task_counts = {
+    all: Task.count,
+    overdue: Task.overdue.count,
+    open_tasks: Task.open_tasks.count,
+    unassigned: Task.unassigned.count,
+    mine: Current.user ? Current.user.tasks.count : 0,
+    due_today: Task.due_today.count
+  }
+
   @tasks = Task.includes(:user)
 
   case params[:filter]
   when "open_tasks"
-    @tasks = @tasks.where(done: false)
+    @tasks = @tasks.merge(Task.open_tasks)
   when "overdue"
-    @tasks = @tasks.where(done: false).where("due_on < ?", Date.current)
+    @tasks = @tasks.merge(Task.overdue)
   when "unassigned"
-    @tasks = @tasks.where(user_id: nil)
+    @tasks = @tasks.merge(Task.unassigned)
+  when "due_today"
+    @tasks = @tasks.merge(Task.due_today)
   end
 
   if params[:mine] == "1"
-      @tasks = Current.user ? @tasks.where(user: Current.user) : @tasks.none
-    end
+    @tasks = Current.user ? @tasks.where(user: Current.user) : @tasks.none
+  end
 
-    @tasks = @tasks.order(done: :asc, due_on: :asc, priority: :desc)
+  @tasks = @tasks.order(done: :asc, due_on: :asc, priority: :desc)
 end
 
   def show
