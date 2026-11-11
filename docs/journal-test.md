@@ -238,3 +238,80 @@ Cette campagne N°3 permet de vise à tester chaque utilisateur avec son workflo
 - La gérante ne voit pas qui est surchargée car quand elle arrive elle voit les tâches en retard, les priorité, et les responsables mais elle ne connait pas qui est surchargée. Je propose que quand elle se connecte elle voit aussi le nombre total des tâches et aussi le nombre de tâche par utilisateur. Son cout estimé est grosse et c'est un défaut d'écran.
 - Trop d'information pour la receptionniste (la colonne responsable) elle peut juste cliquer sur mes tâche pour voir ses tâches. Je propose que elle voit toutes les tâches mais pas les responsables. Sonn cout est estimé est petite et c'est un défaut d'écran.
 - Puisque l'estheticienne et la receptionniste ne peuvent cocher que le tâche, ce n'est pas nécessaire d'avoir un bouton terminé sur les tâches qui ne leur appartiennent pas, je propose de retirer ce bouton sur ces tâches. cout moyen , défaut d'écran
+
+## Campagne n°4 — 11/11/2026 — protocole machine puis humain
+
+### Partie machine
+
+- Revue complète de `app/` et `test/` : le bouton « Terminer » apparaît sur des
+  tâches que certains rôles ne peuvent pas terminer; la création par une
+  non-gérante affiche un responsable mais enregistre une tâche non assignée;
+  les dates de filtre utilisent `Date.today` tandis que l'écran utilise
+  `Date.current`.
+- La suite complète `bin/rails db:test:prepare test` est verte : **49 tests,
+  228 assertions, 0 échec, 0 erreur, 0 ignoré**, en 3,25 s; couverture lignes
+  **164/173 (94,79 %)**.
+- La suite ciblée des rôles et workflows est verte : **23 tests, 139
+  assertions**, en 4,89 s.
+- Le vrai scénario « deux onglets » est désormais une régression d'intégration :
+  formulaire chargé, suppression, PATCH périmé, redirection et alerte vérifiés.
+- Contrôles complémentaires : Importmap réussi; RuboCop en échec sur des
+  infractions de style préexistantes; Brakeman termine avec le code 5 et indique
+  que 8.0.6 est en retard sur 8.1.0, sans afficher de rapport; Bundler Audit
+  signale des avis sur les dépendances.
+  `test:system` est indisponible faute de `test/system/`. La suite Rails est
+  verte, pas l'ensemble des contrôles CI.
+
+### Partie humaine — uniquement ce que la machine ne voit pas
+
+**Session de rôle — réceptionniste.** La session interactive locale,
+chronométrée de l'ouverture du formulaire jusqu'au constat des compteurs après
+les deux créations, a duré **1 min 57 s**. La création reste à **2 clics**
+(« Nouvelle tâche », puis « Enregistrer »), comme en semaine 2 : le score des
+3 clics n'a pas bougé; l'objectif est toujours tenu.
+
+Le parcours a commencé sur « Toutes les tâches », puis la réceptionniste a créé
+une tâche ouverte échéant aujourd'hui. « Tâches du jour » est passé de 0 à 1,
+mais « Non assignées » a également augmenté et « Mes tâches » n'a pas bougé :
+le formulaire montrait la réceptionniste comme responsable, mais la tâche créée ne lui est
+pas attribuée. Le suivi de sa propre création n'est donc pas terminé.
+
+**Critique de l'écran touché — compteur `due_today`.** Il est placé dans le
+groupe de compteurs/filtres en haut de la liste : emplacement visible et
+cohérent pour trier la journée. Il est utile à la gérante et à la réception
+pour repérer la charge du jour; pour l'esthéticienne, un total global ne dit pas
+combien de tâches lui reviennent. Le libellé ne précise pas non plus que le
+compteur exclut les tâches terminées. La création observée révèle en outre
+qu'un compteur global peut augmenter alors que la tâche reste absente de
+« Mes tâches ».
+
+| Cas de la litanie `due_today` | Résultat observé |
+|---|---|
+| Frontière de fuseau horaire | Non reproduite : l'hôte et Rails étaient tous deux en UTC et indiquaient le 11/11/2026. La revue a toutefois trouvé `Date.today` dans le scope contre `Date.current` dans l'écran; un changement de date entre ces horloges reste à tester. |
+| Tâche due aujourd'hui déjà terminée | Créée via le formulaire avec « Terminée » cochée : le compteur est resté à 1. Comportement attendu observé; aucun test automatisé ne couvre ce cas précis. |
+| Tâche créée aujourd'hui pour aujourd'hui | Créée ouverte via le formulaire : le compteur est passé de 0 à 1. Cas observé; la tâche est restée non assignée, défaut de workflow distinct. |
+
+### Synthèse côte à côte
+
+| Campagne | Couverture | Temps humain |
+|---|---|---:|
+| n°3 | 18 cas manuels | 45 min |
+| n°4 | 49 tests machine + 3 cas humains `due_today` (le parcours réceptionniste est inclus dans le troisième) + critique d'écran | 1 min 57 s |
+
+La manipulation humaine chronométrée est plus courte; la suite machine a pris
+en charge les vérifications répétables. Le temps est celui de cette session
+interactive locale, pas une étude avec une participante externe; la frontière
+de fuseau n'a pas été forcée.
+
+## Bilan de phase — What our test suite would have caught in my Week-1 JavaScript projects
+
+1. The “donne” button was a broken user action; an integration test would have caught it.
+2. The integration test should assert the click's visible result, not merely that the button exists.
+3. “SILVERS” was a wrong domain value; a model test for valid values would have caught it.
+4. A boundary-focused model test would have made that value failure precise and repeatable.
+5. The widget-shadowing bug changed the rendered workflow; an integration test would have exposed it.
+6. That integration test should exercise the widget through the user's real screen, not a mock alone.
+7. The failure at assertion 146 needed a regression test that reproduced its incorrect result.
+8. The regression test would keep that historical failure from returning after a fix.
+9. Model tests protect domain rules; integration tests protect complete user workflows.
+10. Together, model, integration, and regression tests close the loop between both training programs.

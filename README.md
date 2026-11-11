@@ -25,7 +25,7 @@ Les trois comptes ci-dessous sont créés par `bin/rails db:seed`. Ils utilisent
 | Consulter toutes les tâches et leurs détails | Oui | Oui | Oui |
 | Créer une tâche | Oui | Oui | Oui |
 | Attribuer une tâche à un membre | Oui | Non, créée non assignée | Non, créée non assignée |
-| Modifier une tâche | Toutes | Ses tâches | Ses tâches via l’URL, sans lien de modification affiché |
+| Modifier une tâche | Toutes | Ses tâches | Non, accès direct refusé |
 | Marquer une tâche comme terminée | Toutes | Ses tâches | Ses tâches |
 | Supprimer une tâche | Oui | Non | Non |
 | Ouvrir directement « Mes tâches » après connexion | Non | Oui | Non |
@@ -177,14 +177,19 @@ Before committing: `bin/rails test` — the suite must be green.
 
 Le journal de test se trouve dans `docs/journal-test.md`
 
-### Relevé des vérifications du 11 novembre 2026
+### Relevé des vérifications locales du 11 novembre 2026
 
-- `git log origin/main --since='3 days ago'` recense 2 commits poussés :
-  - `80e02e4` (11 novembre 2026), `refactor: test suite cleanup` ;
-  - `e6f0496` (9 novembre 2026), `feat: add task filter counts and due today functionality with corresponding styles and tests`.
-- Le job CI `test` a réussi pour ces deux commits, mais aucun de leurs workflows GitHub Actions n'était entièrement vert : les jobs `lint`, `scan_ruby` et `system-test` ont échoué.
-- Vérification locale le 11 novembre 2026 : `bin/rails test` a réussi avec 48 tests et 218 assertions, sans échec ni erreur.
-- Aucun commit n'a été créé pendant cette vérification.
+- `bin/rails db:test:prepare test` : 49 tests, 228 assertions, 0 échec, 0 erreur, 0 ignoré ; couverture lignes 164/173 (94,79 %).
+- Tests ciblés des rôles et workflows : 23 tests, 139 assertions, 0 échec, 0 erreur.
+- `bin/importmap audit` : réussi.
+- `bin/rubocop -f github` : échec sur des infractions de style préexistantes dans plusieurs fichiers de l'application et des tests.
+- `bin/brakeman --no-pager` : termine avec le code 5 en signalant que la version installée (8.0.6) n'est pas à jour (8.1.0); aucun rapport d'analyse n'a été affiché.
+- `bin/bundler-audit` : échec, des avis de vulnérabilité concernent les dépendances verrouillées.
+- `bin/rails db:test:prepare test:system` : indisponible, le répertoire `test/system/` est absent.
+
+La suite Rails est verte, mais les contrôles CI ne le sont pas tous. Les observations
+de campagne et les limites de cette vérification sont consignées dans
+[`docs/journal-test.md`](docs/journal-test.md).
 
 ## Contribution
 
