@@ -172,7 +172,20 @@ Pour lancer la suite de tests :
 ```bash
 bin/rails test
 ```
+
+Before committing: `bin/rails test` — the suite must be green.
+
 Le journal de test se trouve dans `docs/journal-test.md`
+
+### Relevé des vérifications du 11 novembre 2026
+
+- `git log origin/main --since='3 days ago'` recense 2 commits poussés :
+  - `80e02e4` (11 novembre 2026), `refactor: test suite cleanup` ;
+  - `e6f0496` (9 novembre 2026), `feat: add task filter counts and due today functionality with corresponding styles and tests`.
+- Le job CI `test` a réussi pour ces deux commits, mais aucun de leurs workflows GitHub Actions n'était entièrement vert : les jobs `lint`, `scan_ruby` et `system-test` ont échoué.
+- Vérification locale le 11 novembre 2026 : `bin/rails test` a réussi avec 48 tests et 218 assertions, sans échec ni erreur.
+- Aucun commit n'a été créé pendant cette vérification.
+
 ## Contribution
 
 Les contributions sont bienvenues. Pour proposer une amélioration :
