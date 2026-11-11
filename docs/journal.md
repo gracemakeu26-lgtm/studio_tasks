@@ -470,3 +470,15 @@ POST "/tasks"| authenticity_token" => "[FILTERED]", "task" => {"title" => "Comma
 |---------|-------|-----------|------------|-------|------|
 | GET "/tasks/new"| | | | 200| 29ms|
 | POST "/tasks"| {"authenticity_token" => "[FILTERED]", "task" => {"title" => "", "due_on" => "", "priority" => "1", "user_id" => "", "done" => "0", "description" => ""}, "commit" => "Enregistrer la tâche"}| | | 422| 56ms|
+
+
+## ## Section du 10/11/2026
+
+### L'inventaire de couverture
+
+| Niveau | Ce qui est couvert | Ce qui manque |
+|--------|--------------------|---------------|
+| Ce qui protège des données ou de l'argent| Les validations , les autorisations | L'atterrissage par rôle après connexion |
+| Ce qui a déjà cassé| La tâche non assigné qui s'affiche sans exploser | bon mot de passe → session ; mauvais → 422 et PAS de session |
+| Ce qui est subtil| open_tasks, overdue, unassigned | due_today|
+| Le reste| | Les vues |

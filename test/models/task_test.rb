@@ -1,45 +1,50 @@
 require "test_helper"
 
 class TaskTest < ActiveSupport::TestCase
+  setup do
+    @task = Task.new(title: "Commander le gel", priority: 1)
+  end
+
   test "validates presence of title" do
-   task = Task.new(title: nil)
-   assert_not task.valid?
-   assert_includes task.errors[:title], "est obligatoire"
+   @task.title = nil
+   assert_not @task.valid?
+   assert_includes @task.errors[:title], "est obligatoire"
   end
   test "too long title" do
-   task = Task.new(title: "a" * 256)
-   assert_not task.valid?
-   assert_includes task.errors[:title], "ne doit pas dépasser 120 caractères"
+   @task.title = "a" * 256
+   assert_not @task.valid?
+   assert_includes @task.errors[:title], "ne doit pas dépasser 120 caractères"
   end
   test "valid title" do
-   task = Task.new(title: "a" * 120)
-   assert task.valid?
+   @task.title = "a" * 120
+   assert @task.valid?
   end
   test "invalid priority" do
-   task = Task.new(priority: 9)
-   assert_not task.valid?
-   assert_includes task.errors[:priority], "n'est pas valide"
+   @task.priority = 9
+   assert_not @task.valid?
+   assert_includes @task.errors[:priority], "n'est pas valide"
   end
   test "valid priority" do
-   task = Task.new(title: "Commander le gel", priority: 1)
-   assert task.valid?
+   assert @task.valid?
   end
   test "too long description" do
-   task = Task.new(description: "a" * 501)
-   assert_not task.valid?
-   assert_includes task.errors[:description], "est trop long (pas plus de 500 caractères)"
+   @task.description = "a" * 501
+   assert_not @task.valid?
+   assert_includes @task.errors[:description], "est trop long (pas plus de 500 caractères)"
   end
   test "valid description" do
-   task = Task.new(title: "Commander le gel", description: "a" * 500)
-   assert task.valid?
+   @task.description = "a" * 500
+   assert @task.valid?
   end
   test "empty fields" do
-   task = Task.new(title: "Commander le gel", due_on: nil, description: nil)
-   assert task.valid?
+   @task.due_on = nil
+   @task.description = nil
+   assert @task.valid?
   end
   test "valid fields" do
-   task = Task.new(title: "Commander le gel", due_on: Date.today, description: "a" * 500)
-   assert task.valid?
+   @task.due_on = Date.today
+   @task.description = "a" * 500
+   assert @task.valid?
   end
   test "overdue scope" do
    task1 = tasks(:late_towels)
